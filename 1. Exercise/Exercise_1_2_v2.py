@@ -10,24 +10,11 @@ import numpy as np
 from matplotlib import pyplot as plt
 oct_image = cv2.imread("./OCTimage_raw.tif", cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
 
+cv2.imwrite('img.tif',oct_image)
 x, y = oct_image.shape
 bits=2**16
 
 """2 OCT image preprocessing framework"""
-
-"""2.1 Histogram
-# create the histogram
-histogram, bin_edges = np.histogram(oct_image, bins=65536, range=(0, 255))
-
-# configure and draw the histogram figure
-plt.figure(1)
-plt.title(" OCT_Image_raw Histogram")
-plt.xlabel("pixel value")
-plt.ylabel("count")
-plt.xlim([0.0, 255.0])  
-plt.plot(bin_edges[0:-1], histogram) """ 
-
-
 """2.2 Intensity transformation"""
 
 """Log Transfomation"""
@@ -91,6 +78,8 @@ blur2 = cv2.GaussianBlur(final_img, (n,n), 0)
 cv2.imwrite('oct_norm_gaussian.tif', blur2)
 
 """2.4"""
+ #21x21 neighborhood
+
  
 """Plotting"""
 
@@ -109,21 +98,23 @@ plt.show()
 # create the histograms
 for j in range(8):
     plt.subplot(4,2,j+1)
-    histogram, bin_edges = np.histogram(images[j], bins=bits, range=(0, 255))
+    histogram, bin_edges = np.histogram(images[j], bins=bits, range=(0, bits))
     plt.title(titles[j])
     plt.xlabel("pixel value")
     plt.ylabel("count")
     histplot = plt.plot(bin_edges[0:-1], histogram)
-    plt.savefig(titles[j]+".jpg", format='jpg')
     
     
     
+    
+   #Normalized Histogram 
+plt.show()    
 histogram, bin_edges = np.histogram(final_img, bins=bits, range=(0, 255))
 
     # configure and draw the histogram figure
-    plt.figure(1)
-    plt.title(" Norm_Image_raw Histogram")
-    plt.xlabel("pixel value")
-    plt.ylabel("count")
-    plt.xlim([0.0, 255.0])  
-    plt.plot(bin_edges[0:-1], histogram)
+plt.figure(1)
+plt.title(" Norm_Image_raw Histogram")
+plt.xlabel("pixel value")
+plt.ylabel("count")  
+plt.plot(bin_edges[0:-1], histogram)
+
