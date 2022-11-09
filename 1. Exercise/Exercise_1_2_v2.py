@@ -10,7 +10,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 oct_image = cv2.imread("./OCTimage_raw.tif", cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
 
-cv2.imwrite('img.tif',oct_image)
 x, y = oct_image.shape
 bits=2**16
 
