@@ -77,9 +77,18 @@ blur2 = cv2.GaussianBlur(final_img, (n,n), 0)
 cv2.imwrite('oct_norm_gaussian.tif', blur2)
 
 """2.4"""
- #21x21 neighborhood
 
- 
+ #21x21 neighborhood
+in_image=cv2.imread('oct_norm_gaussian.tif')
+pix=in_image[500:503]
+#(means, stds) = cv2.meanStdDev(pix)
+#wmean,bmean=means.flatten()
+#wstds,bstds=stds.flatten()
+#print ("means %.1f %.1f %.1f " % (wmean,bmean))
+#print ("stds  %.1f %.1f %.1f " % (wstds,bstds))
+
+
+
 """Plotting"""
 
 titles=['Original','oct_gamma_transformed','Averaging Filter Gamma','Gaussian Filter Gamma',
