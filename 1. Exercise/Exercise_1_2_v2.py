@@ -107,11 +107,23 @@ for i in range(8):
 plt.show()
 
 # create the histograms
-for j in range(6):
-    plt.figure(j)
-    histogram, bin_edges = np.histogram(images[j], bins=bits, range=(np.min(images[j]), np.max(images[j])))
+for j in range(8):
+    plt.subplot(4,2,j+1)
+    histogram, bin_edges = np.histogram(images[j], bins=bits, range=(0, 255))
     plt.title(titles[j])
     plt.xlabel("pixel value")
     plt.ylabel("count")
     histplot = plt.plot(bin_edges[0:-1], histogram)
     plt.savefig(titles[j]+".jpg", format='jpg')
+    
+    
+    
+histogram, bin_edges = np.histogram(final_img, bins=bits, range=(0, 255))
+
+    # configure and draw the histogram figure
+    plt.figure(1)
+    plt.title(" Norm_Image_raw Histogram")
+    plt.xlabel("pixel value")
+    plt.ylabel("count")
+    plt.xlim([0.0, 255.0])  
+    plt.plot(bin_edges[0:-1], histogram)
