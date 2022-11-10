@@ -80,7 +80,7 @@ cv2.imwrite('oct_norm_gaussian.tif', blur2)
 
  #21x21 neighborhood
 in_image=cv2.imread('oct_norm_gaussian.tif')
-pix=in_image[500:]
+pix=in_image[500][500]
 #(means, stds) = cv2.meanStdDev(pix)
 #wmean,bmean=means.flatten()
 #wstds,bstds=stds.flatten()
