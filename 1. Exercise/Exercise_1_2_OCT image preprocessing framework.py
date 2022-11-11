@@ -100,8 +100,6 @@ for i in range(8):
     plt.subplot(4,2,i+1),plt.imshow(images[i],'gray')
     plt.title(titles[i])
     plt.xticks([]), plt.yticks([])
-    
-plt.show()
 
 # create the histograms
 for j in range(8):
@@ -111,9 +109,9 @@ for j in range(8):
     plt.xlabel("pixel value")
     plt.ylabel("count")
     histplot = plt.plot(bin_edges[0:-1], histogram)
+
     
-    
-    
+  
     
    #Normalized Histogram 
 plt.show()    
