@@ -17,15 +17,16 @@ bits=2**16
 """2.2 Intensity transformation"""
 
 """Log Transfomation"""
-c = (bits-1)/(np.log(1 + np.max(oct_image)))
-log_transformed = c * np.log(1 + oct_image)
+def Img_Log_Transformation(raw_img):
+    c = (bits-1)/(np.log(1 + np.max(raw_img)))
+    log_transformed = c * np.log(1 + raw_img)
   
-# Specify the data type.
-log_transformed = np.array(log_transformed, dtype = np.uint16)
+    # Specify the data type.
+    log_transformed = np.array(log_transformed, dtype = np.uint16)
   
-# Save the output.
-cv2.imwrite('oct_log_transformed.tif', log_transformed)
-
+    # Save the output.
+    cv2.imwrite('oct_log_transformed.tif', log_transformed)
+    return log_transformed;
 
 """Gamma Transformation"""
 for gamma in [0.2]:
