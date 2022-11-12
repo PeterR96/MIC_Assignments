@@ -78,9 +78,16 @@ cv2.imwrite('oct_norm_gaussian.tif', blur2)
 
 """2.4"""
 
- #21x21 neighborhood
+#21x21 neighborhood
+ #import image
 in_image=cv2.imread('oct_norm_gaussian.tif')
+#convert the image to grayscale
+#gray= cv2.cvtColor('oct_norm_gaussian.tif', cv2.COLOR_BGR2GRAY())
+#select the pixel
 pix=in_image[500][500]
+
+#make a triangle from that pixel
+#cv2.rectangle(gray, pt1, pt2, red)
 #(means, stds) = cv2.meanStdDev(pix)
 #wmean,bmean=means.flatten()
 #wstds,bstds=stds.flatten()
