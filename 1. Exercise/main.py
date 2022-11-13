@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 raw_img = cv2.imread("./OCTimage_raw.tif", cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
 x, y = raw_img.shape
 bits=2**16
-n=5
+n=3
 """2 OCT image preprocessing framework -------------------------------------"""
 #2.1 Histogram
 display_Histogram(raw_img,bits)
