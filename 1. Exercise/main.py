@@ -25,7 +25,7 @@ gamma_transformed = Img_Gamma_Transformation(raw_img,bits)
 #2.3 Spital Filter and Normalize filtered Img
 AVG_Filtered_Img = Spital_Filter_AVG(log_transformed,n)
 Gaussian_Filtered_Image = Spital_Filter_Gaussian(log_transformed,n)
-Filtered_Img_Normalize(Gaussian_Filtered_Image,x,y)
+Normalized_Img = Filtered_Img_Normalize(Gaussian_Filtered_Image,x,y)
 
 """
 #2.4 3 Pixel Neighborhood

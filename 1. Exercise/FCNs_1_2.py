@@ -64,7 +64,7 @@ def Spital_Filter_Gaussian(img,n):
 """ Normalize the Image"""
 def Filtered_Img_Normalize(img,x,y):
     norm_img = np.zeros((x,y))
-    final_img = cv2.normalize(img, norm_img, 0, 255, cv2.NORM_MINMAX)
+    final_img = cv2.normalize(img, norm_img, 0, 255, cv2.NORM_MINMAX, dtype = cv2.CV_32F)
     #cv2.imshow('Normalized_Img', final_img)
     cv2.imwrite('Normalized_Img.jpg', final_img)
     return final_img
