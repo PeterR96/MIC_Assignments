@@ -13,7 +13,6 @@ from matplotlib import pyplot as plt
 from PIL import Image
 
 raw_img = cv2.imread("./OCTimage_raw.tif", cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
-#img_gray = cv2.cvtColor(raw_img, cv2.COLOR_BGR2GRAY)
 
 x, y = raw_img.shape
 bits=2**16
@@ -32,9 +31,9 @@ Gaussian_Filtered_Image = Spital_Filter_Gaussian(log_transformed,n)
 Normalized_Img = Filtered_Img_Normalize(Gaussian_Filtered_Image,x,y)
 
  
-img_rgb = cv2.imread('raw_image', cv2.IMREAD_UNCHANGED)
+"""img_rgb = cv2.imread('raw_image', cv2.IMREAD_UNCHANGED)
 img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-cv2.imwrite(img_rgb, img_rgb)
+cv2.imwrite(img_rgb, img_rgb)"""
 
 
     
