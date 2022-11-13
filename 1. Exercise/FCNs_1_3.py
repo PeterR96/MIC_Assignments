@@ -2,9 +2,9 @@
 """
 Created on Wed Nov  9 14:45:04 2022
 
-@author: Peter Rott
+@author: Peter, Filip, Markus
 """
-"""2.4 Edge """
+
 import math
 import cv2
 import numpy as np 

@@ -2,7 +2,7 @@
 """
 Created on Sun Nov  6 16:45:54 2022
 
-@author: Markus
+@author: Peter, Filip, Markus
 """
 
 import cv2

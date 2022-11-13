@@ -6,6 +6,7 @@ Created on Sat Nov 12 21:00:23 2022
 """
 from FCNs_1_2 import *
 from FCNs_1_3 import *
+from FCNs_1_4 import *
 import math
 import cv2
 import numpy as np 
@@ -31,11 +32,11 @@ AVG_Filtered_Img = Spital_Filter_AVG(log_transformed,n)
 Gaussian_Filtered_Image = Spital_Filter_Gaussian(log_transformed,n)
 Normalized_Img = Filtered_Img_Normalize(Gaussian_Filtered_Image,x,y)
 
- 
+""" 13.11.22 Markus commented because of compile error 
 img_rgb = cv2.imread('raw_image', cv2.IMREAD_UNCHANGED)
 img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
 cv2.imwrite(img_rgb, img_rgb)
-
+"""
 
     
 
@@ -67,13 +68,13 @@ Threshold_boundries()
 
 #3.4 Canny Edge Detection
 Canny_Edge_Detection()
-
+"""
 #4-----------------------------------------------------------------------
 #4.1 Otsu Threshholding Algorithm
-Otsu_Threshholding_Algorithm()
+Otsu_threshold = Otsu_Threshholding_Algorithm(raw_img)
 
 #4.2 Additional Segmentation Algorithm
-Additional_Segmentation_Algorithm()
+#Adaptive_Gaussian_Threshholding_Algorithm(raw_img)
 
 #4.3 Segment Evaluation
 ####""""------------------------------------------------------------------------"""
