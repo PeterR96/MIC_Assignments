@@ -10,8 +10,11 @@ import math
 import cv2
 import numpy as np 
 from matplotlib import pyplot as plt
+from PIL import Image
 
 raw_img = cv2.imread("./OCTimage_raw.tif", cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
+#img_gray = cv2.cvtColor(raw_img, cv2.COLOR_BGR2GRAY)
+
 x, y = raw_img.shape
 bits=2**16
 n=3
@@ -40,10 +43,11 @@ Threshold()
 #3-----------------------------------------------------------------------
 #3.1 Edge Detection with Sobel kernel
 Sobel_Filter = Sobel_kernel(Normalized_Img)
-"""
-#3.2 Image Gradient
-Img_Gradient()
 
+#3.2 Image Gradient
+#Sobel_Array = np.array(Sobel_Filter)
+Img_Gradient(Sobel_Filter)
+"""
 #3.3 Treshhold and most prominent boundries in the image
 Threshold_boundries()
 
