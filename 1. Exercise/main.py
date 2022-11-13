@@ -13,11 +13,11 @@ import numpy as np
 from matplotlib import pyplot as plt
 from PIL import Image
 
-raw_img = cv2.imread("./OCTimage_raw.tif", cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
+raw_img = cv2.imread("./OCTimage_raw.tif",cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
 
 x, y = raw_img.shape
 bits=2**16
-n=3
+n=5
 """2 OCT image preprocessing framework -------------------------------------"""
 #2.1 Histogram
 display_Histogram(raw_img,bits)
@@ -45,6 +45,7 @@ cv2.imwrite(img_rgb, img_rgb)"""
 
 #>>>>>>> 94153314f039c85a73aa56daed9994bb4d2033f2
 # dont know what this is?
+# hahaha 
     
 
 
@@ -68,7 +69,7 @@ Sobel_Filter = Sobel_kernel(Normalized_Img)
 
 #3.2 Image Gradient
 #Sobel_Array = np.array(Sobel_Filter)
-Img_Gradient(Sobel_Filter)
+G=Img_Gradient(Sobel_Filter)
 """
 #3.3 Treshhold and most prominent boundries in the image
 Threshold_boundries()
@@ -78,7 +79,7 @@ Canny_Edge_Detection()
 """
 #4-----------------------------------------------------------------------
 #4.1 Otsu Threshholding Algorithm
-Otsu_threshold = Otsu_Threshholding_Algorithm(raw_img)
+#Otsu_threshold = Otsu_Threshholding_Algorithm(raw_img)
 
 #4.2 Additional Segmentation Algorithm
 #Adaptive_Gaussian_Threshholding_Algorithm(raw_img)
