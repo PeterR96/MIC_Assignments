@@ -14,7 +14,6 @@ from matplotlib import pyplot as plt
 from PIL import Image
 
 raw_img = cv2.imread("./OCTimage_raw.tif", cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
-#img_gray = cv2.cvtColor(raw_img, cv2.COLOR_BGR2GRAY)
 
 x, y = raw_img.shape
 bits=2**16
@@ -32,12 +31,20 @@ AVG_Filtered_Img = Spital_Filter_AVG(log_transformed,n)
 Gaussian_Filtered_Image = Spital_Filter_Gaussian(log_transformed,n)
 Normalized_Img = Filtered_Img_Normalize(Gaussian_Filtered_Image,x,y)
 
+#<<<<<<< HEAD
 """ 13.11.22 Markus commented because of compile error 
 img_rgb = cv2.imread('raw_image', cv2.IMREAD_UNCHANGED)
 img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
 cv2.imwrite(img_rgb, img_rgb)
 """
+#=======
+ 
+"""img_rgb = cv2.imread('raw_image', cv2.IMREAD_UNCHANGED)
+img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+cv2.imwrite(img_rgb, img_rgb)"""
 
+#>>>>>>> 94153314f039c85a73aa56daed9994bb4d2033f2
+# dont know what this is?
     
 
 
