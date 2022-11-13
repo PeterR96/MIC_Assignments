@@ -27,8 +27,22 @@ AVG_Filtered_Img = Spital_Filter_AVG(log_transformed,n)
 Gaussian_Filtered_Image = Spital_Filter_Gaussian(log_transformed,n)
 Normalized_Img = Filtered_Img_Normalize(Gaussian_Filtered_Image,x,y)
 
+ 
+img_rgb = cv2.imread('raw_image', cv2.IMREAD_UNCHANGED)
+img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+cv2.imwrite(img_rgb, img_rgb)
+
+
+    
+
+
+
 """
-#2.4 3 Pixel Neighborhood
+''''''#2.4 3 Pixel Neighborhood
+gray = cv2.cvtColor('./OCTimage_raw.tif', cv2.COLOR_RGB2GRAY)
+cv2.imshow(gray, gray_image)
+cv2.waitKey(0) 
+
 Neighborhood(Pixelx,Pixely,img)
 Neighborhood(Pixelx,Pixely,img)
 Neighborhood(Pixelx,Pixely,img)
@@ -57,4 +71,4 @@ Otsu_Threshholding_Algorithm()
 Additional_Segmentation_Algorithm()
 
 #4.3 Segment Evaluation
-#""""------------------------------------------------------------------------"""
+####""""------------------------------------------------------------------------"""

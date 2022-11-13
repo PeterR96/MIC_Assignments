@@ -70,12 +70,14 @@ def Filtered_Img_Normalize(img,x,y):
     return final_img
 
 """2.4"""
+
 """
 #21x21 neighborhood
  #import image
 in_image=cv2.imread('oct_norm_gaussian.tif')
 #convert the image to grayscale
-#gray= cv2.cvtColor('oct_norm_gaussian.tif', cv2.COLOR_BGR2GRAY())
+
+gray
 #select the pixel
 pix=in_image[500][500]
 
