@@ -5,6 +5,7 @@ Created on Sat Nov 12 21:00:23 2022
 @author: Peter Rott
 """
 from FCNs_1_2 import *
+from FCNs_1_3 import *
 import math
 import cv2
 import numpy as np 
@@ -35,11 +36,11 @@ Neighborhood(Pixelx,Pixely,img)
 
 #2.5 Treshhold
 Threshold()
-
+"""
 #3-----------------------------------------------------------------------
 #3.1 Edge Detection with Sobel kernel
-Sobel_kernel()
-
+Sobel_Filter = Sobel_kernel(Normalized_Img)
+"""
 #3.2 Image Gradient
 Img_Gradient()
 
