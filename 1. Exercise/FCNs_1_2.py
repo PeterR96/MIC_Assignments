@@ -9,14 +9,13 @@ import cv2
 import numpy as np 
 from matplotlib import pyplot as plt
 
-bits=2**16
 
 """2 OCT image preprocessing framework"""
 
 """Histogram"""
 def display_Histogram(img,bits):
       
-    histogram, bin_edges = np.histogram(img, bins=bits, range=(0, bits))
+    histogram, bin_edges = np.histogram(img, bins=bits, range=(0, 255))
     # configure and draw the histogram figure
     plt.figure()
     plt.title("Histogram")
