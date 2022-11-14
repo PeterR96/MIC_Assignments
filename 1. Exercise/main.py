@@ -33,20 +33,16 @@ Gaussian_Filtered_Image = Spital_Filter_Gaussian(log_transformed,n)
 Normalized_Img = Filtered_Img_Normalize(Gaussian_Filtered_Image,x,y)
 
 #<<<<<<< HEAD
-""" 13.11.22 Markus commented because of compile error 
-img_rgb = cv2.imread('raw_image', cv2.IMREAD_UNCHANGED)
-img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-cv2.imwrite(img_rgb, img_rgb)
+
+
 """
 #=======
  
-"""img_rgb = cv2.imread('raw_image', cv2.IMREAD_UNCHANGED)
+img_rgb = cv2.imread('raw_image', cv2.IMREAD_UNCHANGED)
 img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
 cv2.imwrite(img_rgb, img_rgb)"""
 
-#>>>>>>> 94153314f039c85a73aa56daed9994bb4d2033f2
-# dont know what this is?
-# hahaha 
+ 
     
 
 

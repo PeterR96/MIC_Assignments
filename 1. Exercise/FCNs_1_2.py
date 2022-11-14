@@ -72,15 +72,32 @@ def Filtered_Img_Normalize(img,x,y):
 
 """2.4"""
 
-"""
 #21x21 neighborhood
  #import image
-in_image=cv2.imread('oct_norm_gaussian.tif')
-#convert the image to grayscale
+image1= cv2.imread('./oct_log_transformed.tif', cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
+#image is grayscale already
 
-gray
 #select the pixel
-pix=in_image[500][500]
+# Start coordinate
+# represents the top left corner of rectangle
+start_point = (50, 50)
+  
+# Ending coordinate
+# represents the bottom right corner of rectangle
+end_point = (60, 61)
+  
+# Blue color in BGR
+color = (255, 0, 0)
+  
+# Line thickness of 2 px
+thickness = 1
+  
+# Using cv2.rectangle() method
+# Draw a rectangle with blue line borders of thickness of 2 px
+image = cv2.rectangle(image1, start_point, end_point, color, thickness)
+window_name='image'
+# Displaying the image 
+cv2.imwrite('Area_of_interest.tif', image)
 
 #make a triangle from that pixel
 #cv2.rectangle(gray, pt1, pt2, red)
@@ -92,7 +109,7 @@ pix=in_image[500][500]
 
 
 
-""""""Plotting
+"""""Plotting
 
 titles=['Original','oct_gamma_transformed','Averaging Filter Gamma','Gaussian Filter Gamma',
         'Averaging Filter Log','Gaussian Filter Log','oct_norm_avg','oct_norm_gaussian']
