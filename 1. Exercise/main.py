@@ -18,7 +18,8 @@ raw_img = cv2.imread("./OCTimage_raw.tif",cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDE
 x, y = raw_img.shape
 bits=2**16
 n=5
-"""2 OCT image preprocessing framework -------------------------------------"""
+
+"""2 OCT image preprocessing framework (find functions in "FCNs_1_2.py")----"""
 #2.1 Histogram
 display_Histogram(raw_img,bits)
 
@@ -63,7 +64,7 @@ Neighborhood(Pixelx,Pixely,img)
 #2.5 Treshhold
 Threshold()
 """
-#3-----------------------------------------------------------------------
+"""3 Edge Detection (find functions in "FCNs_1_3.py")------------------------"""
 #3.1 Edge Detection with Sobel kernel
 Sobel_Filter = Sobel_kernel(Normalized_Img)
 
@@ -77,12 +78,12 @@ Threshold_boundries()
 #3.4 Canny Edge Detection
 Canny_Edge_Detection()
 """
-#4-----------------------------------------------------------------------
+"""4 Image Segmentation (find functions in "FCNs_1_4.py")--------------------"""
 #4.1 Otsu Threshholding Algorithm
-#Otsu_threshold = Otsu_Threshholding_Algorithm(raw_img)
+Otsu_threshold = Otsu_Threshholding_Algorithm(Normalized_Img)
 
 #4.2 Additional Segmentation Algorithm
-#Adaptive_Gaussian_Threshholding_Algorithm(raw_img)
+Triangle_Threshholding_Algorithm(Normalized_Img)
 
 #4.3 Segment Evaluation
-####""""------------------------------------------------------------------------"""
+

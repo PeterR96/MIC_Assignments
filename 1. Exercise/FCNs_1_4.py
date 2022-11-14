@@ -12,16 +12,15 @@ from matplotlib import pyplot as plt
 """ 4. Image Segmentation """
 
 # 4.1 Otsu thresholding algorithm
-def Otsu_Threshholding_Algorithm(img):
+def Otsu_Threshholding_Algorithm(img_norm):
     #compute threshold value and mask with otsu algorithm
+    img = np.uint16(img_norm*255)
     Otsu_th,Otsu_img = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     cv2.imwrite("Otsu_Mask.jpg", Otsu_img)
     return Otsu_th                     # return threshold value
-"""
-def Adaptive_Gaussian_Threshholding_Algorithm(img):
-    AGT_img = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
-    plt.figure()
-    plt.title("Mask generated from Adaptive Gaussian Thresholding Algorithm using Otsu")
-    plt.imshow(AGT_img,'gray')
-    plt.savefig('AGT_Mask.png', dpi=600, bbox_inches='tight')
-"""
+
+def Triangle_Threshholding_Algorithm(img_norm):
+    img = np.uint8(img_norm*255)
+    Triangle_th,Triangle_img = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_TRIANGLE)
+    cv2.imwrite("Triangle_Mask.jpg", Triangle_img)
+    return Triangle_th                 # return threshold value
