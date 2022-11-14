@@ -18,7 +18,7 @@ raw_img = cv2.imread("./OCTimage_raw.tif",cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDE
 x, y = raw_img.shape
 bits=2**16
 n=5
-thresh=19000
+thresh=23300
 """2 OCT image preprocessing framework (find functions in "FCNs_1_2.py")----"""
 #2.1 Histogram
 display_Histogram(raw_img,bits)

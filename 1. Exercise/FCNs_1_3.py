@@ -31,6 +31,6 @@ def Img_Gradient(sobel,thresh):
     #Threshhold
     ret,thresh2 = cv2.threshold(mag,thresh,65535,cv2.THRESH_BINARY)
     cv2.imwrite('Gradiant_Magnetut.tif', mag)
-    cv2.imwrite('Gradiant_Magnetut_Threshhold.tif', thresh2)
+    cv2.imwrite('Gradiant_Magnetut_Threshhold_'+str(thresh)+'.tif', thresh2)
     #return binary_output
     return thresh2
