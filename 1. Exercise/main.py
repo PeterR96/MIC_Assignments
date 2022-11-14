@@ -70,7 +70,7 @@ Sobel_Filter = Sobel_kernel(Normalized_Img)
 
 #3.2 Image Gradient
 #Sobel_Array = np.array(Sobel_Filter)
-G=Img_Gradient(Sobel_Filter)
+G=Img_Gradient(Sobel_Filter,thresh=(21000 , 65535))
 """
 #3.3 Treshhold and most prominent boundries in the image
 Threshold_boundries()
