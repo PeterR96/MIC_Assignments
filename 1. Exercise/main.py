@@ -27,8 +27,8 @@ log_transformed = Img_Log_Transformation(raw_img,bits)
 gamma_transformed = Img_Gamma_Transformation(raw_img,bits)
 
 #2.3 Spital Filter and Normalize filtered Img
-AVG_Filtered_Img = Spital_Filter_AVG(log_transformed,n)
-Gaussian_Filtered_Image = Spital_Filter_Gaussian(log_transformed,n)
+AVG_Filtered_Img = Spital_Filter_AVG(gamma_transformed,n)
+Gaussian_Filtered_Image = Spital_Filter_Gaussian(gamma_transformed,n)
 Normalized_Img = Filtered_Img_Normalize(Gaussian_Filtered_Image,x,y)
 
 #<<<<<<< HEAD

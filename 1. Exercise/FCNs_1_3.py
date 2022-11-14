@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 def Sobel_kernel(img):
     
     sobelx = cv2.Sobel(img,ddepth=cv2.CV_32F,dx=1,dy=0,ksize=3)  # x
-    sobely = cv2.Sobel(img,ddepth=cv2.CV_32F,dx=0,dy=1,ksize=3)  # y
+    sobely =  cv2.Sobel(img,ddepth=cv2.CV_32F,dx=0,dy=1,ksize=3)  # y
     sobel = [sobelx,sobely]
     cv2.imwrite('Sobel_horizontal.tif', sobelx)
     cv2.imwrite('Sobel_vertical.tif', sobely)
