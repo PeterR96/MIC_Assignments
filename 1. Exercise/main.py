@@ -79,7 +79,7 @@ Canny_Edge_Detection()
 Otsu_threshold = Otsu_Threshholding_Algorithm(Normalized_Img)
 
 #4.2 Additional Segmentation Algorithm
-Triangle_Threshholding_Algorithm(Normalized_Img)
+Triangle_th = Triangle_Threshholding_Algorithm(Normalized_Img)
 
 #4.3 Segment Evaluation
 

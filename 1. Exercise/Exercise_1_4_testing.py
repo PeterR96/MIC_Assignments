@@ -14,7 +14,7 @@ plt.figure(1)
 plt.imshow(img_norm)
 
 # Otsu's thresholding
-img = np.uint8(img_norm*255)
+img = np.uint16(img_norm*65535)
 plt.figure(2)
 plt.imshow(img)
 Otsu_th,Otsu_img = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
@@ -22,7 +22,7 @@ plt.figure(3)
 plt.imshow(Otsu_img)
 cv2.imwrite("Otsu_Mask.jpg", Otsu_img)
 
-
+"""
 Triangle_th,Triangle_img = cv2.threshold(img,0,255,cv2.THRESH_TRIANGLE)
 cv2.imwrite("Triangle_Mask.jpg", Triangle_img)
 
@@ -33,3 +33,4 @@ Otsu_th1,Otsu_img1 = cv2.threshold(img1,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 cv2.imwrite("Otsu_Mask_gauss.jpg", Otsu_img1)
 Triangle_th1,Triangle_img1 = cv2.threshold(img1,0,255,cv2.THRESH_TRIANGLE)
 cv2.imwrite("Triangle_Mask_gauss.jpg", Triangle_img1)
+"""
