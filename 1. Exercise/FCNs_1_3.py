@@ -21,7 +21,7 @@ def Sobel_kernel(img):
     
     return sobel
 
-def Img_Gradient(sobel,thresh=(25000, 30000)):
+def Img_Gradient(sobel,thresh):
     
     mag = np.sqrt((sobel[0] ** 2) + (sobel[1] ** 2))
     
@@ -29,8 +29,8 @@ def Img_Gradient(sobel,thresh=(25000, 30000)):
     mag = (mag/scale_factor).astype(np.uint16) 
  
     #Threshhold
-    ret,thresh2 = cv2.threshold(mag,thresh[0],thresh[1],cv2.THRESH_BINARY)
+    ret,thresh2 = cv2.threshold(mag,thresh,65535,cv2.THRESH_BINARY)
     cv2.imwrite('Gradiant_Magnetut.tif', mag)
     cv2.imwrite('Gradiant_Magnetut_Threshhold.tif', thresh2)
     #return binary_output
-    return mag
+    return thresh2

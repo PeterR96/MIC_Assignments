@@ -18,7 +18,7 @@ raw_img = cv2.imread("./OCTimage_raw.tif",cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDE
 x, y = raw_img.shape
 bits=2**16
 n=5
-
+thresh=19000
 """2 OCT image preprocessing framework (find functions in "FCNs_1_2.py")----"""
 #2.1 Histogram
 display_Histogram(raw_img,bits)
@@ -70,7 +70,7 @@ Sobel_Filter = Sobel_kernel(Normalized_Img)
 
 #3.2 Image Gradient
 #Sobel_Array = np.array(Sobel_Filter)
-G=Img_Gradient(Sobel_Filter,thresh=(21000 , 65535))
+G=Img_Gradient(Sobel_Filter,thresh)
 """
 #3.3 Treshhold and most prominent boundries in the image
 Threshold_boundries()
