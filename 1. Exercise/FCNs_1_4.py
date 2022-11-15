@@ -25,3 +25,19 @@ def Triangle_Threshholding_Algorithm(img_norm):
     Triangle_th,Triangle_img = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_TRIANGLE)
     cv2.imwrite("Triangle_Mask.jpg", Triangle_img)
     return Triangle_th                         # return threshold value
+
+def Otsu_Thresholding_Algorithm_gauss(img_norm):
+    #apply gauss filter before Otsu Thresholding
+    img = np.uint8(img_norm*255)
+    img = cv2.GaussianBlur(img, (11,11), 9)
+    Otsu_th,Otsu_img = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    cv2.imwrite("Otsu_Mask_gauss.jpg", Otsu_img)
+    return Otsu_th                             # return threshold value
+
+def Triangle_Threshold_Algorithm_gauss(img_norm):
+    #apply gauss filter before Triangle Thresholding
+    img = np.uint8(img_norm*255)
+    img = cv2.GaussianBlur(img, (11,11), 9)
+    Triangle_th,Triangle_img = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_TRIANGLE)
+    cv2.imwrite("Triangle_Mask_gauss.jpg", Triangle_img)
+    return Triangle_th                         # return threshold value
