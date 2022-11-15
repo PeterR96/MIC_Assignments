@@ -77,19 +77,16 @@ def Filtered_Img_Normalize(img,x,y):
 image1= cv2.imread('./oct_log_transformed.tif', cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
 #image is grayscale already
 
-#select the pixel
+#For visual representation
 # Start coordinate
 # represents the top left corner of rectangle
-start_point = (50, 50)
-  
+start_point = (150, 150)
 # Ending coordinate
 # represents the bottom right corner of rectangle
-end_point = (60, 61)
-  
+end_point = (172, 172)
 #  color in BGR
 color = (255, 255, 255)
-  
-# Line thickness of 2 px
+# Line thickness of the box
 thickness = 1
   
 # Using cv2.rectangle() method
@@ -99,10 +96,24 @@ window_name='image'
 # Displaying the image 
 cv2.imwrite('Area_of_interest.tif', image)
 #crop the image and save it
-crop= image [50:72, 100:122]
-#img2 = np.copy(image1)
-#image1[50:72, 100:122] = 255
+crop= image [50:71, 100:121]
+crop1=image[224:245, 325:346]
+crop2=image [752:753, 678:689]
+#calculate the standard deviation
+arr = [crop] 
+arr1= [crop1]
+arr2=[crop2]
+  
+    
+# Print out the standard deviation and mean value
+print("Standard deviation of array1 is: ", np.std(arr)) 
+print("Mean value of array1: ", np.mean(arr))
+print("Standard deviation of array1 is: ", np.std(arr1)) 
+print("Mean value of array1: ", np.mean(arr1))
+print("Standard deviation of array1 is: ", np.std(arr2)) 
+print("Mean value of array1: ", np.mean(arr2))
 
+#showing the image
 cv2.imshow('original', image1)
 cv2.imshow('cropped', crop)
 cv2.waitKey(0)
