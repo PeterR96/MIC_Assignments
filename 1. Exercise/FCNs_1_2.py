@@ -11,7 +11,6 @@ from matplotlib import pyplot as plt
 
 
 """2 OCT image preprocessing framework"""
-
 """Histogram"""
 def display_Histogram(img,bits):
       
@@ -22,18 +21,27 @@ def display_Histogram(img,bits):
     plt.xlabel("pixel value")
     plt.ylabel("count")  
     plt.plot(bin_edges[0:-1], histogram)
-    plt.savefig('Histogram.png', dpi=300, bbox_inches='tight')
+    plt.savefig('Histogram'+str(bits)+'.png', dpi=300, bbox_inches='tight')
 
+def display_norm_Hisogram (img):
+    histogram, bin_edges = np.histogram(img, bins=2*32, range=(0, 1))
+    # configure and draw the histogram figure
+    plt.figure()
+    plt.title("Histogram")
+    plt.xlabel("pixel value")
+    plt.ylabel("count")  
+    plt.plot(bin_edges[0:-1], histogram)
+    plt.savefig('Histogram_norm.png', dpi=300, bbox_inches='tight')
 """2.2 Intensity transformation"""
-
 """Log Transfomation"""
+
 def Img_Log_Transformation(img,bits):
     c = (bits-1)/(np.log(1 + np.max(img)))
     log_transformed = c * np.log(1 + img)
   
     # Specify the data type.Save the output.
     log_transformed = np.array(log_transformed, dtype = np.uint16)
-    cv2.imwrite('oct_log_transformed.tif', log_transformed)
+    cv2.imwrite('2.2_oct_log_transformed.tif', log_transformed)
     return log_transformed
 
 """Gamma Transformation"""
@@ -42,22 +50,21 @@ def Img_Gamma_Transformation(img,bits):
       
     # Apply gamma correction. Save edited image.
     gamma_tranformed = np.array((bits-1)*(img / (bits-1)) ** gamma, dtype = 'uint16')
-    cv2.imwrite('oct_gamma_transformed_'+str(gamma)+'.tif', gamma_tranformed) 
+    cv2.imwrite('2.2_oct_gamma_transformed_'+str(gamma)+'.tif', gamma_tranformed) 
     return gamma_tranformed
     
-
 """2.3 Spital Filter"""
 #Average Filter Gamma
 def Spital_Filter_AVG(img,n):   
     kernel = np.ones((n,n),np.float32)/n**2
     AVG_Filtered_Img = cv2.filter2D(img,-1,kernel)
-    cv2.imwrite('AVG_Filtered_Img'+str(n)+'x'+str(n)+'.tif', AVG_Filtered_Img)
+    cv2.imwrite('2.3_AVG_Filtered_Img'+str(n)+'x'+str(n)+'.tif', AVG_Filtered_Img)
     return AVG_Filtered_Img
 
 #Gaussian Filter Gamma
 def Spital_Filter_Gaussian(img,n):
     Gaussian_Filtered_Img = cv2.GaussianBlur(img, (n,n), 0)
-    cv2.imwrite('Gaussian_Filtered_Img'+str(n)+'x'+str(n)+'.tif', Gaussian_Filtered_Img)
+    cv2.imwrite('2.3_Gaussian_Filtered_Img'+str(n)+'x'+str(n)+'.tif', Gaussian_Filtered_Img)
     return Gaussian_Filtered_Img
 
 """ Normalize the Image"""
@@ -65,9 +72,7 @@ def Filtered_Img_Normalize(img,x,y):
     
     norm_img = np.zeros((x,y))
     final_img = cv2.normalize(img, norm_img, 0, 1, norm_type=cv2.NORM_MINMAX, dtype = cv2.CV_32F)
-    #cv2.imshow('Normalized_Img', final_img)
-    cv2.imwrite('Normalized_Img.tif', final_img)
-    #cv2.waitKey(0)
+    cv2.imwrite('2.3_Normalized_Img.tif', final_img)
     return final_img
 
 """2.4"""
