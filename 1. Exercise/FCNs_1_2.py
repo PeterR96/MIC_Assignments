@@ -77,18 +77,54 @@ def Filtered_Img_Normalize(img,x,y):
 
 """2.4"""
 
-"""
 #21x21 neighborhood
  #import image
-in_image=cv2.imread('oct_norm_gaussian.tif')
-#convert the image to grayscale
+image1= cv2.imread('./oct_log_transformed.tif', cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
+#image is grayscale already
 
-gray
-#select the pixel
-pix=in_image[500][500]
+#For visual representation
+# Start coordinate
+# represents the top left corner of rectangle
+start_point = (150, 150)
+# Ending coordinate
+# represents the bottom right corner of rectangle
+end_point = (172, 172)
+#  color in BGR
+color = (255, 255, 255)
+# Line thickness of the box
+thickness = 1
+  
+# Using cv2.rectangle() method
+# Draw a rectangle with blue line borders of thickness of 2 px
+image = cv2.rectangle(image1, start_point, end_point, color, thickness)
+window_name='image'
+# Displaying the image 
+cv2.imwrite('Area_of_interest.tif', image)
+#crop the image and save it
+crop= image [50:71, 100:121]
+crop1=image[224:245, 325:346]
+crop2=image [752:753, 678:689]
+#calculate the standard deviation
+arr = [crop] 
+arr1= [crop1]
+arr2=[crop2]
+  
+    
+# Print out the standard deviation and mean value
+print("Standard deviation of array1 is: ", np.std(arr)) 
+print("Mean value of array1: ", np.mean(arr))
+print("Standard deviation of array1 is: ", np.std(arr1)) 
+print("Mean value of array1: ", np.mean(arr1))
+print("Standard deviation of array1 is: ", np.std(arr2)) 
+print("Mean value of array1: ", np.mean(arr2))
 
-#make a triangle from that pixel
-#cv2.rectangle(gray, pt1, pt2, red)
+#showing the image
+cv2.imshow('original', image1)
+cv2.imshow('cropped', crop)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+#cv2.imwrite('cropped', crop)
+
 #(means, stds) = cv2.meanStdDev(pix)
 #wmean,bmean=means.flatten()
 #wstds,bstds=stds.flatten()
@@ -97,7 +133,7 @@ pix=in_image[500][500]
 
 
 
-""""""Plotting
+"""""Plotting
 
 titles=['Original','oct_gamma_transformed','Averaging Filter Gamma','Gaussian Filter Gamma',
         'Averaging Filter Log','Gaussian Filter Log','oct_norm_avg','oct_norm_gaussian']
