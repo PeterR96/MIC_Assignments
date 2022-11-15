@@ -2,7 +2,7 @@
 """
 Created on Sat Nov 12 21:00:23 2022
 
-@author: Peter Rott
+@author: Peter, Filip, Markus
 """
 from FCNs_1_2 import *
 from FCNs_1_3 import *

@@ -86,8 +86,8 @@ start_point = (50, 50)
 # represents the bottom right corner of rectangle
 end_point = (60, 61)
   
-# Blue color in BGR
-color = (255, 0, 0)
+#  color in BGR
+color = (255, 255, 255)
   
 # Line thickness of 2 px
 thickness = 1
@@ -98,9 +98,17 @@ image = cv2.rectangle(image1, start_point, end_point, color, thickness)
 window_name='image'
 # Displaying the image 
 cv2.imwrite('Area_of_interest.tif', image)
+#crop the image and save it
+crop= image [50:72, 100:122]
+#img2 = np.copy(image1)
+#image1[50:72, 100:122] = 255
 
-#make a triangle from that pixel
-#cv2.rectangle(gray, pt1, pt2, red)
+cv2.imshow('original', image1)
+cv2.imshow('cropped', crop)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+#cv2.imwrite('cropped', crop)
+
 #(means, stds) = cv2.meanStdDev(pix)
 #wmean,bmean=means.flatten()
 #wstds,bstds=stds.flatten()
