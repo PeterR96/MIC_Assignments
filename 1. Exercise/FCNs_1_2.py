@@ -8,7 +8,7 @@ Created on Sun Nov  6 16:45:54 2022
 import cv2
 import numpy as np 
 from matplotlib import pyplot as plt
-
+from PIL import Image
 
 """2 OCT image preprocessing framework"""
 """Histogram"""
@@ -24,7 +24,7 @@ def display_Histogram(img,bits):
     plt.savefig('Histogram'+str(bits)+'.png', dpi=300, bbox_inches='tight')
 
 def display_norm_Hisogram (img):
-    histogram, bin_edges = np.histogram(img, bins=2*32, range=(0, 1))
+    histogram, bin_edges = np.histogram(img, bins=2*16, range=(0, 1))
     # configure and draw the histogram figure
     plt.figure()
     plt.title("Histogram")
@@ -46,7 +46,7 @@ def Img_Log_Transformation(img,bits):
 
 """Gamma Transformation"""
 def Img_Gamma_Transformation(img,bits):
-    gamma = 0.2
+    gamma = 0.1
       
     # Apply gamma correction. Save edited image.
     gamma_tranformed = np.array((bits-1)*(img / (bits-1)) ** gamma, dtype = 'uint16')
@@ -77,81 +77,43 @@ def Filtered_Img_Normalize(img,x,y):
 
 """2.4"""
 
-#21x21 neighborhood
- #import image
-image1= cv2.imread('./oct_log_transformed.tif', cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
-#image is grayscale already
-
-#For visual representation
-# Start coordinate
-# represents the top left corner of rectangle
-start_point = (150, 150)
-# Ending coordinate
-# represents the bottom right corner of rectangle
-end_point = (172, 172)
-#  color in BGR
-color = (255, 255, 255)
-# Line thickness of the box
-thickness = 1
-  
-# Using cv2.rectangle() method
-# Draw a rectangle with blue line borders of thickness of 2 px
-image = cv2.rectangle(image1, start_point, end_point, color, thickness)
-window_name='image'
-# Displaying the image 
-cv2.imwrite('Area_of_interest.tif', image)
-#crop the image and save it
-crop= image [50:71, 100:121]
-crop1=image[224:245, 325:346]
-crop2=image [752:753, 678:689]
-#calculate the standard deviation
-arr = [crop] 
-arr1= [crop1]
-arr2=[crop2]
-  
+def Neighborhood(PixelX,PixelY,img):
     
-# Print out the standard deviation and mean value
-print("Standard deviation of array1 is: ", np.std(arr)) 
-print("Mean value of array1: ", np.mean(arr))
-print("Standard deviation of array1 is: ", np.std(arr1)) 
-print("Mean value of array1: ", np.mean(arr1))
-print("Standard deviation of array1 is: ", np.std(arr2)) 
-print("Mean value of array1: ", np.mean(arr2))
-
-#showing the image
-cv2.imshow('original', image1)
-cv2.imshow('cropped', crop)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-#cv2.imwrite('cropped', crop)
-
-#(means, stds) = cv2.meanStdDev(pix)
-#wmean,bmean=means.flatten()
-#wstds,bstds=stds.flatten()
-#print ("means %.1f %.1f %.1f " % (wmean,bmean))
-#print ("stds  %.1f %.1f %.1f " % (wstds,bstds))
-
-
-
-"""""Plotting
-
-titles=['Original','oct_gamma_transformed','Averaging Filter Gamma','Gaussian Filter Gamma',
-        'Averaging Filter Log','Gaussian Filter Log','oct_norm_avg','oct_norm_gaussian']
-images=[oct_image,gamma_corrected,dst,blur,dst1,blur1,dst2,blur2]
-
-plt.figure('images')
-for i in range(8):
-    plt.subplot(4,2,i+1),plt.imshow(images[i],'gray')
-    plt.title(titles[i])
-    plt.xticks([]), plt.yticks([])
-
-# create the histograms
-for j in range(8):
-    plt.subplot(4,2,j+1)
-    histogram, bin_edges = np.histogram(images[j], bins=bits, range=(0, bits))
-    plt.title(titles[j])
-    plt.xlabel("pixel value")
-    plt.ylabel("count")
-    histplot = plt.plot(bin_edges[0:-1], histogram)
-"""
     
+    start_point = (PixelX-11, PixelY-11)
+    # Ending coordinate
+    # represents the bottom right corner of rectangle
+    end_point = (PixelX+11 , PixelY+11)
+    #  color in BGR
+    color = (255, 255, 255)
+    thickness = 1
+    
+    # Using cv2.rectangle() method
+    # Draw a rectangle with blue line borders of thickness of 2 px
+    selected_image = cv2.rectangle(img, start_point, end_point, color, thickness)
+    # Displaying the image 
+    cv2.imwrite('Area_of_interest.tif', selected_image)
+    
+    #standard_dev = np.std(selected_image)
+    #mean1 = no.mean(selected_image)
+    
+   
+   #img8 = np.uint8(selected_image*255)
+  
+    img_crop = img [(PixelX-10):(PixelY+11),(PixelY-10):(PixelY+11)] 
+    cv2.imwrite('2.4_Area_of_interest_with_rectangle.tif', selected_image)
+    cv2.imwrite('2.4_Area_of_interest_21x21.tif', img_crop)
+    
+   # img_crop = selected_image.crop(PixelX-10, PixelY+10, PixelX-10, PixelY+10)
+    
+    mean, std = cv2.meanStdDev(img_crop)
+    
+    
+    print("Standard deviation of the selected area is: ", std)
+    print("Mean value of the selected area is: ", mean)
+
+    
+   # return selected_image
+    #return mean
+    #return std
+    return img_crop

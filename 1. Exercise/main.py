@@ -21,6 +21,9 @@ x, y = raw_img.shape
 bits=2**16
 n=5
 
+PixelX=160  
+PixelY=160
+
 #treshholds
 t_uint16=25000
 t_uint8 = 180
@@ -39,18 +42,17 @@ AVG_Filtered_Img = Spital_Filter_AVG(log_transformed,n)
 Gaussian_Filtered_Image = Spital_Filter_Gaussian(log_transformed,n)
 Normalized_Img = Filtered_Img_Normalize(Gaussian_Filtered_Image,x,y)
 display_norm_Hisogram (Normalized_Img)
+#2.4 3 Pixel Neighborhood
+
+
+Crop=Neighborhood(PixelX,PixelY,log_transformed)
+
+#Neighborhood(Pixelx,Pixely,img)
+#Neighborhood(Pixelx,Pixely,img)
+
 """
-''''''#2.4 3 Pixel Neighborhood
-gray = cv2.cvtColor('./OCTimage_raw.tif', cv2.COLOR_RGB2GRAY)
-cv2.imshow(gray, gray_image)
-cv2.waitKey(0) 
-
-Neighborhood(Pixelx,Pixely,img)
-Neighborhood(Pixelx,Pixely,img)
-Neighborhood(Pixelx,Pixely,img)
-
 #2.5 Treshhold
-Threshold()
+#Threshold()
 """
 """3 Edge Detection (find functions in "FCNs_1_3.py")------------------------"""
 #3.1 Edge Detection with Sobel kernel
@@ -64,10 +66,10 @@ Canny_Edge = Canny_Edge_Detection(Normalized_Img,t_uint8)
 
 """4 Image Segmentation (find functions in "FCNs_1_4.py")--------------------"""
 #4.1 Otsu Threshholding Algorithm
-Otsu_threshold = Otsu_Threshholding_Algorithm(Normalized_Img,t_otsu)
+Otsu_threshold = Otsu_Threshholding_Algorithm(Normalized_Img)
 
 #4.2 Additional Segmentation Algorithm
-Triangle_Threshholding_Algorithm(Normalized_Img,t_triangle)
+Triangle_Threshholding_Algorithm(Normalized_Img)
 
 #4.3 Segment Evaluation
 
