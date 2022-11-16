@@ -24,10 +24,10 @@ def display_Histogram(img,bits):
     plt.savefig('Histogram'+str(bits)+'.png', dpi=300, bbox_inches='tight')
 
 def display_norm_Hisogram (img):
-    histogram, bin_edges = np.histogram(img, bins=2*16, range=(0, 1))
+    histogram, bin_edges = np.histogram(img, bins=2**16, range=(0, 1))
     # configure and draw the histogram figure
     plt.figure()
-    plt.title("Histogram")
+    plt.title("Histogram normalized Image")
     plt.xlabel("pixel value")
     plt.ylabel("count")  
     plt.plot(bin_edges[0:-1], histogram)
@@ -93,18 +93,10 @@ def Neighborhood(PixelX,PixelY,img):
     selected_image = cv2.rectangle(img, start_point, end_point, color, thickness)
     # Displaying the image 
     cv2.imwrite('Area_of_interest.tif', selected_image)
-    
-    #standard_dev = np.std(selected_image)
-    #mean1 = no.mean(selected_image)
-    
-   
-   #img8 = np.uint8(selected_image*255)
   
     img_crop = img [(PixelX-10):(PixelY+11),(PixelY-10):(PixelY+11)] 
     cv2.imwrite('2.4_Area_of_interest_with_rectangle.tif', selected_image)
     cv2.imwrite('2.4_Area_of_interest_21x21.tif', img_crop)
-    
-   # img_crop = selected_image.crop(PixelX-10, PixelY+10, PixelX-10, PixelY+10)
     
     mean, std = cv2.meanStdDev(img_crop)
     
@@ -112,8 +104,13 @@ def Neighborhood(PixelX,PixelY,img):
     print("Standard deviation of the selected area is: ", std)
     print("Mean value of the selected area is: ", mean)
 
-    
-   # return selected_image
-    #return mean
-    #return std
+    histogram, bin_edges = np.histogram(img_crop, bins=2**16, range=(0, 20000))
+      # configure and draw the histogram figure
+    plt.figure()
+    plt.title("Histogram crop 21x21")
+    plt.xlabel("pixel value")
+    plt.ylabel("count")  
+    plt.plot(bin_edges[0:-1], histogram)
+    plt.savefig('Histogram_crop_21x21.png', dpi=300, bbox_inches='tight')
+   
     return img_crop
