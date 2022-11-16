@@ -21,7 +21,7 @@ def display_Histogram(img,bits):
     plt.xlabel("pixel value")
     plt.ylabel("count")  
     plt.plot(bin_edges[0:-1], histogram)
-    plt.savefig('Histogram'+str(bits)+'.png', dpi=300, bbox_inches='tight')
+    plt.savefig('2.1_Histogram_raw_OTC.png', dpi=300, bbox_inches='tight')
 
 def display_norm_Hisogram (img):
     histogram, bin_edges = np.histogram(img, bins=2**16, range=(0, 1))
@@ -31,7 +31,7 @@ def display_norm_Hisogram (img):
     plt.xlabel("pixel value")
     plt.ylabel("count")  
     plt.plot(bin_edges[0:-1], histogram)
-    plt.savefig('Histogram_norm.png', dpi=300, bbox_inches='tight')
+    plt.savefig('2.3_Histogram_norm.png', dpi=300, bbox_inches='tight')
 """2.2 Intensity transformation"""
 """Log Transfomation"""
 
@@ -107,10 +107,10 @@ def Neighborhood(PixelX,PixelY,img):
     histogram, bin_edges = np.histogram(img_crop, bins=2**16, range=(0, 20000))
       # configure and draw the histogram figure
     plt.figure()
-    plt.title("Histogram crop 21x21")
+    plt.title("Histogram crop 21x21"+str(PixelX)+":"+str(PixelY))
     plt.xlabel("pixel value")
     plt.ylabel("count")  
     plt.plot(bin_edges[0:-1], histogram)
-    plt.savefig('Histogram_crop_21x21.png', dpi=300, bbox_inches='tight')
+    plt.savefig('2.4_Histogram_crop_21x21.png', dpi=300, bbox_inches='tight')
    
     return img_crop
