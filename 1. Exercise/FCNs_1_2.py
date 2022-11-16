@@ -79,7 +79,7 @@ def Filtered_Img_Normalize(img,x,y):
 
 #21x21 neighborhood
  #import image
-image1= cv2.imread('./oct_log_transformed.tif', cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
+image1= cv2.imread('oct_log_transformed.tif', cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
 #image is grayscale already
 
 #For visual representation
@@ -99,30 +99,37 @@ thickness = 1
 image = cv2.rectangle(image1, start_point, end_point, color, thickness)
 window_name='image'
 # Displaying the image 
-cv2.imwrite('Area_of_interest.tif', image)
+#cv2.imwrite('Area_of_interest.tif', image)
 #crop the image and save it
 crop= image [50:71, 100:121]
-crop1=image[224:245, 325:346]
+cv2.imwrite('Area_of_interest_a1.tif', crop)
+crop1=image [224:245, 325:346]
+cv2.imwrite('Area_of_interest_a2.tif', crop1)
 crop2=image [752:753, 678:689]
+cv2.imwrite('Area_of_interest_a3.tif', crop2)
 #calculate the standard deviation
 arr = [crop] 
 arr1= [crop1]
-arr2=[crop2]
+arr2= [crop2]
   
-    
+# calculate frequency of pixels in range 0-255
+histg = cv2.calcHist([crop],[0],None,[256],[0,256]) 
+plt.plot(histg)
+plt.show()
+
 # Print out the standard deviation and mean value
 print("Standard deviation of array1 is: ", np.std(arr)) 
-print("Mean value of array1: ", np.mean(arr))
-print("Standard deviation of array1 is: ", np.std(arr1)) 
-print("Mean value of array1: ", np.mean(arr1))
-print("Standard deviation of array1 is: ", np.std(arr2)) 
-print("Mean value of array1: ", np.mean(arr2))
+print("Mean value of array 1: ", np.mean(arr))
+print("Standard deviation of array2 is: ", np.std(arr1)) 
+print("Mean value of array 2: ", np.mean(arr1))
+print("Standard deviation of array3 is: ", np.std(arr2)) 
+print("Mean value of array 3: ", np.mean(arr2))
 
 #showing the image
-cv2.imshow('original', image1)
-cv2.imshow('cropped', crop)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+#cv2.imshow('original', image1)
+#cv2.imshow('cropped', crop)
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
 #cv2.imwrite('cropped', crop)
 
 #(means, stds) = cv2.meanStdDev(pix)

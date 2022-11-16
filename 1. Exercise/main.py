@@ -41,9 +41,7 @@ Normalized_Img = Filtered_Img_Normalize(Gaussian_Filtered_Image,x,y)
 display_norm_Hisogram (Normalized_Img)
 """
 ''''''#2.4 3 Pixel Neighborhood
-gray = cv2.cvtColor('./OCTimage_raw.tif', cv2.COLOR_RGB2GRAY)
-cv2.imshow(gray, gray_image)
-cv2.waitKey(0) 
+
 
 Neighborhood(Pixelx,Pixely,img)
 Neighborhood(Pixelx,Pixely,img)
