@@ -81,14 +81,11 @@ def Neighborhood(PixelX,PixelY,img):
     
     
     start_point = (PixelX-11, PixelY-11)
-    # Ending coordinate
     # represents the bottom right corner of rectangle
     end_point = (PixelX+11 , PixelY+11)
-    #  color in BGR
     color = (255, 255, 255)
     thickness = 1
     
-    # Using cv2.rectangle() method
     # Draw a rectangle with blue line borders of thickness of 2 px
     selected_image = cv2.rectangle(img, start_point, end_point, color, thickness)
     # Displaying the image 
