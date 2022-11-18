@@ -45,7 +45,7 @@ display_norm_Hisogram (Normalized_Img)
 #2.4 3 Pixel Neighborhood
 
 
-Crop=Neighborhood(PixelX,PixelY,log_transformed)
+Crop = Neighborhood(PixelX,PixelY,log_transformed)
 
 #Neighborhood(Pixelx,Pixely,img)
 #Neighborhood(Pixelx,Pixely,img)

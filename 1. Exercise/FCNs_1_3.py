@@ -10,8 +10,8 @@ import numpy as np
 
 def Sobel_kernel(img):
     
-    sobelx = cv2.Sobel(img,ddepth=cv2.CV_32F,dx=1,dy=0,ksize=3)  # x
-    sobely = cv2.Sobel(img,ddepth=cv2.CV_32F,dx=0,dy=1,ksize=3)  # y
+    sobely = cv2.Sobel(img,ddepth=cv2.CV_32F,dx=1,dy=0,ksize=3)  # x
+    sobelx = cv2.Sobel(img,ddepth=cv2.CV_32F,dx=0,dy=1,ksize=3)  # y
     sobel = [sobelx,sobely]
     cv2.imwrite('3.1_Sobel_horizontal.tif', sobelx)
     cv2.imwrite('3.1_Sobel_vertical.tif', sobely)

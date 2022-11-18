@@ -46,7 +46,7 @@ def Img_Log_Transformation(img,bits):
 
 """Gamma Transformation"""
 def Img_Gamma_Transformation(img,bits):
-    gamma = 0.1
+    gamma = 0.2
       
     # Apply gamma correction. Save edited image.
     gamma_tranformed = np.array((bits-1)*(img / (bits-1)) ** gamma, dtype = 'uint16')
@@ -56,7 +56,7 @@ def Img_Gamma_Transformation(img,bits):
 """2.3 Spital Filter"""
 #Average Filter Gamma
 def Spital_Filter_AVG(img,n):   
-    kernel = np.ones((n,n),np.float32)/n**2
+    kernel = np.ones((n,n),np.uint16)/n**2
     AVG_Filtered_Img = cv2.filter2D(img,-1,kernel)
     cv2.imwrite('2.3_AVG_Filtered_Img'+str(n)+'x'+str(n)+'.tif', AVG_Filtered_Img)
     return AVG_Filtered_Img
@@ -104,10 +104,10 @@ def Neighborhood(PixelX,PixelY,img):
     print("Standard deviation of the selected area is: ", std)
     print("Mean value of the selected area is: ", mean)
 
-    histogram, bin_edges = np.histogram(img_crop, bins=2**16, range=(0, 20000))
+    histogram, bin_edges = np.histogram(img_crop, bins=2**16, range=(0, 1))
       # configure and draw the histogram figure
     plt.figure()
-    plt.title("Histogram crop 21x21"+str(PixelX)+":"+str(PixelY))
+    plt.title("Histogram crop 21x21 Pixel: "+str(PixelX)+":"+str(PixelY))
     plt.xlabel("pixel value")
     plt.ylabel("count")  
     plt.plot(bin_edges[0:-1], histogram)
