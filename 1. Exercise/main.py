@@ -26,7 +26,7 @@ PixelY=160
 
 #treshholds
 t_uint16=25000
-t_uint8 = 180
+t_uint8 = 220
 
 
 """2 OCT image preprocessing framework (find functions in "FCNs_1_2.py")----"""
