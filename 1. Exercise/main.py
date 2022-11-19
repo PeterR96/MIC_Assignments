@@ -47,6 +47,7 @@ display_norm_Hisogram (Normalized_Img)
 
 Crop = Neighborhood(PixelX,PixelY,log_transformed)
 
+
 #Neighborhood(Pixelx,Pixely,img)
 #Neighborhood(Pixelx,Pixely,img)
 

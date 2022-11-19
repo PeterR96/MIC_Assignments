@@ -83,10 +83,18 @@ def Neighborhood(PixelX,PixelY,img):
     start_point = (PixelX-11, PixelY-11)
     # represents the bottom right corner of rectangle
     end_point = (PixelX+11 , PixelY+11)
+    
+    start_point1 = (PixelX-111, PixelY-111)
+    end_point1 = (PixelX+111, PixelY+111)
+    
+    start_point2 = (PixelX-211, PixelY-211)
+    end_point2 = (PixelX+211 , PixelY+211)
+    
     color = (255, 255, 255)
     thickness = 1
+
     
-    # Draw a rectangle with blue line borders of thickness of 2 px
+    # Draw a rectangle with blue line borders of thickness
     selected_image = cv2.rectangle(img, start_point, end_point, color, thickness)
     # Displaying the image 
     cv2.imwrite('Area_of_interest.tif', selected_image)
@@ -94,6 +102,7 @@ def Neighborhood(PixelX,PixelY,img):
     img_crop = img [(PixelX-10):(PixelY+11),(PixelY-10):(PixelY+11)] 
     cv2.imwrite('2.4_Area_of_interest_with_rectangle.tif', selected_image)
     cv2.imwrite('2.4_Area_of_interest_21x21.tif', img_crop)
+    
     
     mean, std = cv2.meanStdDev(img_crop)
     
@@ -110,4 +119,10 @@ def Neighborhood(PixelX,PixelY,img):
     plt.plot(bin_edges[0:-1], histogram)
     plt.savefig('2.4_Histogram_crop_21x21.png', dpi=300, bbox_inches='tight')
    
+    ret, thresh_hold = cv2.threshold(img, 100, 255, cv2.THRESH_BINARY)
+    thresh_hold = cv2.resize(thresh_hold, (260, 140))    
+    cv2.imwrite('2.4_Binary_Threshold_Image', thresh_hold)
+    
     return img_crop
+
+  
