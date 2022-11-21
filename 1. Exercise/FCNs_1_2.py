@@ -108,33 +108,16 @@ def Neighborhood(PixelX,PixelY,PixelX1,PixelY1,PixelX2,PixelY2,img):
     print("Standard deviation of the selected area is: ", std)
     print("Mean value of the selected area is: ", mean)
 
-    histogram, bin_edges = np.histogram(img_crop, bins=2**16, range=(0, 1))
+    histogram, bin_edges = np.histogram(img_crop2, bins=2**16, range=(0, 20055))
       # configure and draw the histogram figure
     plt.figure()
     plt.title("Histogram crop 21x21 Pixel: "+str(PixelX)+":"+str(PixelY))
     plt.xlabel("pixel value")
     plt.ylabel("count")  
     plt.plot(bin_edges[0:-1], histogram)
-    plt.savefig('2.4_Histogram_crop_21x21.png', dpi=300, bbox_inches='tight')
+    plt.savefig('2.4_Histogram_crop_21x21a2.png', dpi=300, bbox_inches='tight')
     
-   histogram, bin_edges = np.histogram(img_crop1, bins=2**16, range=(0, 1))
-     # configure and draw the histogram figure for the 2nd crop
-   plt.figure()
-   plt.title("Histogram crop 21x21 Pixel: "+str(PixelX1)+":"+str(PixelY1))
-   plt.xlabel("pixel value")
-   plt.ylabel("count")  
-   plt.plot(bin_edges[0:-1], histogram)
-   plt.savefig('2.4_Histogram_crop_21x21a1.png', dpi=300, bbox_inches='tight')
-
-   histogram, bin_edges = np.histogram(img_crop2, bins=2**16, range=(0, 1))
-     # configure and draw the histogram figure for 3rd crop
-   plt.figure()
-   plt.title("Histogram crop 21x21 Pixel: "+str(PixelX2)+":"+str(PixelY2))
-   plt.xlabel("pixel value")
-   plt.ylabel("count")  
-   plt.plot(bin_edges[0:-1], histogram)
-   plt.savefig('2.4_Histogram_crop_21x21a2.png', dpi=300, bbox_inches='tight')
-    
+   
     return img_crop
 
 def Threshold_diff(t,t1,raw_img):
