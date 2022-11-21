@@ -77,18 +77,12 @@ def Filtered_Img_Normalize(img,x,y):
 
 """2.4"""
 
-def Neighborhood(PixelX,PixelY,img):
+def Neighborhood(PixelX,PixelY,PixelX1,PixelY1,PixelX2,PixelY2,img):
     
-    
+    #represent the points of rectangle
     start_point = (PixelX-11, PixelY-11)
-    # represents the bottom right corner of rectangle
     end_point = (PixelX+11 , PixelY+11)
     
-    start_point1 = (PixelX-111, PixelY-111)
-    end_point1 = (PixelX+111, PixelY+111)
-    
-    start_point2 = (PixelX-211, PixelY-211)
-    end_point2 = (PixelX+211 , PixelY+211)
     
     color = (255, 255, 255)
     thickness = 1
@@ -98,12 +92,16 @@ def Neighborhood(PixelX,PixelY,img):
     selected_image = cv2.rectangle(img, start_point, end_point, color, thickness)
     # Displaying the image 
     cv2.imwrite('Area_of_interest.tif', selected_image)
-  
     img_crop = img [(PixelX-10):(PixelY+11),(PixelY-10):(PixelY+11)] 
+    img_crop1 = img [(PixelX1-10):(PixelY1+11),(PixelY1-10):(PixelY1+11)] 
+    img_crop2 = img [(PixelX2-10):(PixelY2+11),(PixelY2-10):(PixelY2+11)] 
+    
     cv2.imwrite('2.4_Area_of_interest_with_rectangle.tif', selected_image)
     cv2.imwrite('2.4_Area_of_interest_21x21.tif', img_crop)
+    cv2.imwrite('2.4_Area_of_interest_21x21a1.tif', img_crop1)
+    cv2.imwrite('2.4_Area_of_interest_21x21a2.tif', img_crop2)
     
-    
+    #calculate the Standard deviation
     mean, std = cv2.meanStdDev(img_crop)
     
     
@@ -118,11 +116,31 @@ def Neighborhood(PixelX,PixelY,img):
     plt.ylabel("count")  
     plt.plot(bin_edges[0:-1], histogram)
     plt.savefig('2.4_Histogram_crop_21x21.png', dpi=300, bbox_inches='tight')
-   
-    ret, thresh_hold = cv2.threshold(img, 100, 255, cv2.THRESH_BINARY)
-    thresh_hold = cv2.resize(thresh_hold, (260, 140))    
-    cv2.imwrite('2.4_Binary_Threshold_Image', thresh_hold)
+    
+   histogram, bin_edges = np.histogram(img_crop1, bins=2**16, range=(0, 1))
+     # configure and draw the histogram figure for the 2nd crop
+   plt.figure()
+   plt.title("Histogram crop 21x21 Pixel: "+str(PixelX1)+":"+str(PixelY1))
+   plt.xlabel("pixel value")
+   plt.ylabel("count")  
+   plt.plot(bin_edges[0:-1], histogram)
+   plt.savefig('2.4_Histogram_crop_21x21a1.png', dpi=300, bbox_inches='tight')
+
+   histogram, bin_edges = np.histogram(img_crop2, bins=2**16, range=(0, 1))
+     # configure and draw the histogram figure for 3rd crop
+   plt.figure()
+   plt.title("Histogram crop 21x21 Pixel: "+str(PixelX2)+":"+str(PixelY2))
+   plt.xlabel("pixel value")
+   plt.ylabel("count")  
+   plt.plot(bin_edges[0:-1], histogram)
+   plt.savefig('2.4_Histogram_crop_21x21a2.png', dpi=300, bbox_inches='tight')
     
     return img_crop
 
-  
+def Threshold_diff(t,t1,raw_img):
+    
+  img = np.uint16(raw_img*255)
+  ret, thresh_hold2 = cv2.threshold(img,t,t1,  cv2.THRESH_BINARY)
+  thresh_hold2 = cv2.resize(thresh_hold2, (960, 540))    
+  cv2.imwrite ('Threshold_diff.tif', thresh_hold2) 
+  return thresh_hold2

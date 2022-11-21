@@ -21,8 +21,17 @@ x, y = raw_img.shape
 bits=2**16
 n=5
 
+t=3728
+t1=65535
+
 PixelX=160  
 PixelY=160
+
+PixelX1=288
+PixelY1=288
+
+PixelX2=519
+PixelY2=519
 
 #treshholds
 t_uint16=25000
@@ -42,19 +51,14 @@ AVG_Filtered_Img = Spital_Filter_AVG(log_transformed,n)
 Gaussian_Filtered_Image = Spital_Filter_Gaussian(log_transformed,n)
 Normalized_Img = Filtered_Img_Normalize(Gaussian_Filtered_Image,x,y)
 display_norm_Hisogram (Normalized_Img)
+
+
 #2.4 3 Pixel Neighborhood
+Crop = Neighborhood(PixelX,PixelY,PixelX1,PixelY1,PixelX2,PixelY2,log_transformed)
 
-
-Crop = Neighborhood(PixelX,PixelY,log_transformed)
-
-
-#Neighborhood(Pixelx,Pixely,img)
-#Neighborhood(Pixelx,Pixely,img)
-
-"""
 #2.5 Treshhold
-#Threshold()
-"""
+Treshold = Threshold_diff(t, t1, raw_img)
+
 """3 Edge Detection (find functions in "FCNs_1_3.py")------------------------"""
 #3.1 Edge Detection with Sobel kernel
 Sobel_Filter = Sobel_kernel(Normalized_Img)
