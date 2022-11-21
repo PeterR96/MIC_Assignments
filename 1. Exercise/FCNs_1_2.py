@@ -102,20 +102,20 @@ def Neighborhood(PixelX,PixelY,PixelX1,PixelY1,PixelX2,PixelY2,img):
     cv2.imwrite('2.4_Area_of_interest_21x21a2.tif', img_crop2)
     
     #calculate the Standard deviation
-    mean, std = cv2.meanStdDev(img_crop)
+    mean, std = cv2.meanStdDev(img_crop2)
     
     
     print("Standard deviation of the selected area is: ", std)
     print("Mean value of the selected area is: ", mean)
 
-    histogram, bin_edges = np.histogram(img_crop2, bins=2**16, range=(0, 20055))
+    histogram, bin_edges = np.histogram(img_crop2, bins=2**10, range=(0, 0.56))
       # configure and draw the histogram figure
     plt.figure()
-    plt.title("Histogram crop 21x21 Pixel: "+str(PixelX)+":"+str(PixelY))
+    plt.title("Histogram crop 21x21 Pixel: "+str(PixelX2)+":"+str(PixelY2))
     plt.xlabel("pixel value")
     plt.ylabel("count")  
     plt.plot(bin_edges[0:-1], histogram)
-    plt.savefig('2.4_Histogram_crop_21x21a2.png', dpi=300, bbox_inches='tight')
+    plt.savefig('2.4_Histogram_crop_21x21_norm_2_12.png', dpi=300, bbox_inches='tight')
     
    
     return img_crop
@@ -126,4 +126,5 @@ def Threshold_diff(t,t1,raw_img):
   ret, thresh_hold2 = cv2.threshold(img,t,t1,  cv2.THRESH_BINARY)
   thresh_hold2 = cv2.resize(thresh_hold2, (960, 540))    
   cv2.imwrite ('Threshold_diff.tif', thresh_hold2) 
+  
   return thresh_hold2
