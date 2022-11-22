@@ -46,7 +46,7 @@ def Img_Log_Transformation(img,bits):
 
 """Gamma Transformation"""
 def Img_Gamma_Transformation(img,bits):
-    gamma = 0.2
+    gamma = 0.25
       
     # Apply gamma correction. Save edited image.
     gamma_tranformed = np.array((bits-1)*(img / (bits-1)) ** gamma, dtype = 'uint16')
@@ -70,9 +70,9 @@ def Spital_Filter_Gaussian(img,n):
 """ Normalize the Image"""
 def Filtered_Img_Normalize(img,x,y):
     
-    norm_img = np.zeros((x,y))
+    norm_img = np.zeros((x,y),np.float32)
     final_img = cv2.normalize(img, norm_img, 0, 1, norm_type=cv2.NORM_MINMAX, dtype = cv2.CV_32F)
-    cv2.imwrite('2.3_Normalized_Img.jpg', final_img)
+    cv2.imwrite('2.3_Normalized_Img.tif', final_img)
     return final_img
 
 """2.4"""
