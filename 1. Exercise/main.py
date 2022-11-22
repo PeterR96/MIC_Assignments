@@ -54,7 +54,7 @@ display_norm_Hisogram (Normalized_Img)
 
 
 #2.4 3 Pixel Neighborhood
-Crop = Neighborhood(PixelX,PixelY,PixelX1,PixelY1,PixelX2,PixelY2,log_transformed)
+#Crop = Neighborhood(PixelX,PixelY,PixelX1,PixelY1,PixelX2,PixelY2,Normalized_Img)
 
 #2.5 Treshhold
 Treshold = Threshold_diff(t, t1, raw_img)
