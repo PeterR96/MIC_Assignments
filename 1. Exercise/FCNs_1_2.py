@@ -77,12 +77,9 @@ def Filtered_Img_Normalize(img,x,y):
 
 """2.4"""
 
-def Neighborhood(PixelX,PixelY,PixelX1,PixelY1,PixelX2,PixelY2,img):
-    
-    #represent the points of rectangle
-    start_point = (PixelX-11, PixelY-11)
-    end_point = (PixelX+11 , PixelY+11)
-    
+def Neighborhood(PixelX,PixelY,PixelX1,PixelY1,PixelX2,PixelY2,img, start_point, end_point):
+
+
     
     color = (255, 255, 255)
     thickness = 1

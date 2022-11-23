@@ -37,6 +37,10 @@ PixelY2=519
 t_uint16=25000
 t_uint8 = 220
 
+#points in the rectangle
+start_point = (PixelX2-11, PixelY2-11)
+end_point = (PixelX2+11 , PixelY2+11)
+
 
 """2 OCT image preprocessing framework (find functions in "FCNs_1_2.py")----"""
 #2.1 Histogram
@@ -54,7 +58,7 @@ display_norm_Hisogram (Normalized_Img)
 
 
 #2.4 3 Pixel Neighborhood
-Crop = Neighborhood(PixelX,PixelY,PixelX1,PixelY1,PixelX2,PixelY2,log_transformed) # Normalized_Img is used instead of log_transformed
+Crop = Neighborhood(PixelX,PixelY,PixelX1,PixelY1,PixelX2,PixelY2,Normalized_Img, start_point, end_point) # Normalized_Img is used instead of log_transformed
 
 #2.5 Treshhold
 Treshold = Threshold_diff(t, t1, Normalized_Img)
