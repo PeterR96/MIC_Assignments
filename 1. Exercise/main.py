@@ -72,9 +72,13 @@ Canny_Edge = Canny_Edge_Detection(Normalized_Img,t_uint8)
 """4 Image Segmentation (find functions in "FCNs_1_4.py")--------------------"""
 #4.1 Otsu Threshholding Algorithm
 Otsu_threshold = Otsu_Threshholding_Algorithm(Normalized_Img)
+# improve edges by applying gauss filter before thresholding
+Otsu_th_gauss = Otsu_Thresholding_Algorithm_gauss(Normalized_Img)
 
 #4.2 Additional Segmentation Algorithm
 Triangle_Threshholding_Algorithm(Normalized_Img)
+# improve edges by applying gauss filter before thresholding
+Triangle_th_gauss = Triangle_Threshold_Algorithm_gauss(Normalized_Img)
 
 #4.3 Segment Evaluation
 
