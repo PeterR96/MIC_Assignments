@@ -120,11 +120,10 @@ def Neighborhood(PixelX,PixelY,PixelX1,PixelY1,PixelX2,PixelY2,img):
    
     return img_crop
 
-def Threshold_diff(t,t1,raw_img):
+def Threshold_diff(t,t1,Normalized_Image):
     
-  img = np.uint16(raw_img*255)
-  ret, thresh_hold2 = cv2.threshold(img,t,t1,  cv2.THRESH_BINARY)
-  
+  #img = np.uint16(Normalized_Image*255)
+  ret, thresh_hold2 = cv2.threshold(Normalized_Image,t,t1,  cv2.THRESH_BINARY)
   thresh_hold2 = cv2.resize(thresh_hold2, (960, 540))    
   cv2.imwrite ('Threshold_diff.tif', thresh_hold2) 
   return thresh_hold2

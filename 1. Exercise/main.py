@@ -21,8 +21,8 @@ x, y = raw_img.shape
 bits=2**16
 n=5
 
-t=3728
-t1=65535
+t=0.2
+t1=1
 
 PixelX=160  
 PixelY=160
@@ -57,7 +57,7 @@ display_norm_Hisogram (Normalized_Img)
 Crop = Neighborhood(PixelX,PixelY,PixelX1,PixelY1,PixelX2,PixelY2,log_transformed) # Normalized_Img is used instead of log_transformed
 
 #2.5 Treshhold
-Treshold = Threshold_diff(t, t1, raw_img)
+Treshold = Threshold_diff(t, t1, Normalized_Img)
 
 """3 Edge Detection (find functions in "FCNs_1_3.py")------------------------"""
 #3.1 Edge Detection with Sobel kernel
@@ -80,5 +80,5 @@ Triangle_Threshholding_Algorithm(Normalized_Img)
 # improve edges by applying gauss filter before thresholding
 Triangle_th_gauss = Triangle_Threshold_Algorithm_gauss(Normalized_Img)
 
-#4.3 Segment Evaluation
+
 
