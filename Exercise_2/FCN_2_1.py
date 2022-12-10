@@ -20,7 +20,7 @@ from PIL import Image
 """ Normalize the Image"""
 def Normalize_Image(img, greylevels):
     norm_img = cv2.normalize(img, None, 0, greylevels-1, norm_type=cv2.NORM_MINMAX, dtype = cv2.CV_8U)
-    cv2.imwrite('2.1_Normalized_Img.tif', norm_img)
+    cv2.imwrite('2_1_Normalized_Img.tif', norm_img)
     return norm_img
 
 """ Determine Image Size """
