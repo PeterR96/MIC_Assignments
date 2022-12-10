@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import math
 from PIL import Image
-from FCN_2_1 import *
+#from FCN_2_1 import *
 
 
 #variables
@@ -27,10 +27,10 @@ cv2.imwrite('raw_img'+'.tif', image)
 
 norm_image = cv2.normalize(image, None, alpha=0, beta=15, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
 
-image_size = image.shape;
+(image_size) = image.shape
 
-BlocksX = int(image_size[1]/20)
-BlocksY = int(image_size[0]/20)
+BlocksX = int(image_size[0]/20)
+BlocksY = int(image_size[1]/20)
 Blocks = (BlocksY,BlocksX)
 
 print('Original Image Size: ',image_size)
