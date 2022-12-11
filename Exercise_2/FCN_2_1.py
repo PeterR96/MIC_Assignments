@@ -100,3 +100,4 @@ def Show_GLCM_Descriptor(glcm_descriptor, title, raw_img):
     plt.tight_layout()
     
     plt.show()
+    fig.savefig('2_1_3_'+str(title)+'',dpi=300, bbox_inches='tight')
