@@ -57,3 +57,7 @@ Show_GLCM_Descriptor(glcm_correlation, 'GLCM Correlation', norm_img)
 Show_GLCM_Descriptor(glcm_contrast, 'GLCM Contrast', norm_img)
 Show_GLCM_Descriptor(glcm_energy, 'GLCM Energy', norm_img)
 Show_GLCM_Descriptor(glcm_homogeneity, 'GLCM Homogeneity', norm_img)
+
+""" 1.4 Build a design matix based on your blocks where each block/region in an observation(sample) 
+        and the texture description are the features. What is the size of your design matrix?"""
+        
