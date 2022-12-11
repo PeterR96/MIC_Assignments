@@ -1,9 +1,10 @@
-########################################################
+###############################################################################
 # Medical Image Computing - Exercise 2
 # MAIN_ex2.py
+# Description: Functions from the Tasks are called to give a better overview
 # Authors: Peter Rott, Filip Slatkovic, Markus Wernard
-# Date: 10.12.2022
-########################################################
+# Date: 11.12.2022
+###############################################################################
 
 # IMPORTS
 import cv2
@@ -37,20 +38,22 @@ blocks = NumberOfBlocks(norm_img, blocksize_x, blocksize_y)
          extract the GLCM at four different directions [0°, 45°, 90°, 135°]. 
          The number of gray levels should be set to 16. What is the size of one GLCM?"""
  
-glcm = GLCM(norm_img, blocks, distances, angles, greylevels)[0]
+glcm = Calc_GLCM(norm_img, blocks, distances, angles, greylevels)
 
 """ 1.3. Calculate the correlation, contrast, energy and homogeneity for each GLCM. Show processed
          images based on the descriptors, i.e. Correlation at four directions with D = 1, 
-         Contrast at fourdirections with D =1, etc., using subplots (see Figure 1). 
+         Contrast at four directions with D=1, etc., using subplots (see Figure 1). 
          How many features did you extract?
          Comment on the differences between the different texture descriptors."""
         
-glcm_correlation = GLCM(norm_img, blocks, distances, angles, greylevels)[1]
-glcm_contrast = GLCM(norm_img, blocks, distances, angles, greylevels)[2]
-glcm_energy = GLCM(norm_img, blocks, distances, angles, greylevels)[3]
-glcm_homogeneity =GLCM(norm_img, blocks, distances, angles, greylevels)[4]
+# Calculate GLCM Descriptors
+glcm_correlation = Calc_GLCM_Descriptors(glcm, blocks)[0]
+glcm_contrast = Calc_GLCM_Descriptors(glcm, blocks)[1]
+glcm_energy = Calc_GLCM_Descriptors(glcm, blocks)[2]
+glcm_homogeneity = Calc_GLCM_Descriptors(glcm, blocks)[3]
 
-img_0deg = Show_GLCM_Correlation(glcm_correlation, raw_img)[0]
-img_45deg = Show_GLCM_Correlation(glcm_correlation, raw_img)[1]
-img_90deg = Show_GLCM_Correlation(glcm_correlation, raw_img)[2]
-img_135deg = Show_GLCM_Correlation(glcm_correlation, raw_img)[3]
+# Show processed images
+Show_GLCM_Descriptor(glcm_correlation, 'GLCM Correlation', norm_img)
+Show_GLCM_Descriptor(glcm_contrast, 'GLCM Contrast', norm_img)
+Show_GLCM_Descriptor(glcm_energy, 'GLCM Energy', norm_img)
+Show_GLCM_Descriptor(glcm_homogeneity, 'GLCM Homogeneity', norm_img)
