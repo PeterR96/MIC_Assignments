@@ -52,9 +52,11 @@ glcm_contrast = Calc_GLCM_Descriptors(glcm, blocks)[1]
 glcm_energy = Calc_GLCM_Descriptors(glcm, blocks)[2]
 glcm_homogeneity = Calc_GLCM_Descriptors(glcm, blocks)[3]
 
+glcm_correlation_f = glcm_correlation.shape, glcm_correlation
+
 # Show processed images
 Show_GLCM_Descriptor(glcm_correlation, 'GLCM Correlation', norm_img)
-Show_GLCM_Descriptor(glcm_contrast, 'GLCM Contrast', norm_img)
+Show_GLCM_Descriptor(glcm_contrast, 'GLCM Contrast', norm_img) # 
 Show_GLCM_Descriptor(glcm_energy, 'GLCM Energy', norm_img)
 Show_GLCM_Descriptor(glcm_homogeneity, 'GLCM Homogeneity', norm_img)
 
