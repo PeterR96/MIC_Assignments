@@ -8,6 +8,7 @@
 
 # IMPORTS
 import cv2
+import array as arr
 from FCN_2_1 import *
 
 # DEFINITIONS
@@ -54,6 +55,7 @@ glcm_homogeneity = Calc_GLCM_Descriptors(glcm, blocks)[3]
 
 glcm_correlation_f = glcm_correlation.shape, glcm_correlation
 
+
 # Show processed images
 Show_GLCM_Descriptor(glcm_correlation, 'GLCM Correlation', norm_img)
 Show_GLCM_Descriptor(glcm_contrast, 'GLCM Contrast', norm_img) # 
@@ -63,3 +65,10 @@ Show_GLCM_Descriptor(glcm_homogeneity, 'GLCM Homogeneity', norm_img)
 """ 1.4 Build a design matix based on your blocks where each block/region in an observation(sample) 
         and the texture description are the features. What is the size of your design matrix?"""
         
+#Calculation of Design Matrix
+
+design_matrix = design_matrix(glcm_correlation, glcm_contrast, glcm_energy, glcm_homogeneity) 
+""" 2.1 Kmeans"""
+kmeans = kmeansclustering(design_matrix)
+
+#Overlay = kmeansVisualize(kmeans)

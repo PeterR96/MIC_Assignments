@@ -11,6 +11,12 @@ import numpy as np
 import skimage as skimg
 from matplotlib import pyplot as plt
 from PIL import Image
+from sklearn.cluster import KMeans
+import sklearn
+
+from skimage.feature import greycomatrix, greycoprops
+from sklearn.cluster import KMeans
+
 
 """ Normalize the Image"""
 def Normalize_Image(img, greylevels):
@@ -53,12 +59,14 @@ def Calc_GLCM_Descriptors(glcm, blocks):
     glcm_contrast = np.zeros([1,4,blocks[1],blocks[0]])
     glcm_energy = np.zeros([1,4,blocks[1],blocks[0]])
     glcm_homogeneity = np.zeros([1,4,blocks[1],blocks[0]])
-    for Dy in range (0, blocks[1]):
+    
+    for Dy in range (0, blocks[1]):      
         for Dx in range (0, blocks[0]):
-                glcm_correlation[:,:,Dy,Dx] = skimg.feature.graycoprops(glcm[:,:,:,:,Dy,Dx], 'correlation')
-                glcm_contrast[:,:,Dy,Dx] = skimg.feature.graycoprops(glcm[:,:,:,:,Dy,Dx], 'contrast')
-                glcm_energy[:,:,Dy,Dx] = skimg.feature.graycoprops(glcm[:,:,:,:,Dy,Dx], 'energy')
-                glcm_homogeneity[:,:,Dy,Dx] = skimg.feature.graycoprops(glcm[:,:,:,:,Dy,Dx], 'homogeneity')            
+            glcm_correlation[:,:,Dy,Dx] = skimg.feature.graycoprops(glcm[:,:,:,:,Dy,Dx], 'correlation')
+            glcm_contrast[:,:,Dy,Dx] = skimg.feature.graycoprops(glcm[:,:,:,:,Dy,Dx], 'contrast')
+            glcm_energy[:,:,Dy,Dx] = skimg.feature.graycoprops(glcm[:,:,:,:,Dy,Dx], 'energy')
+            glcm_homogeneity[:,:,Dy,Dx] = skimg.feature.graycoprops(glcm[:,:,:,:,Dy,Dx], 'homogeneity')
+                            
     return glcm_correlation, glcm_contrast, glcm_energy, glcm_homogeneity
 
 """ Show processed Images based on correlation descriptor """
@@ -101,3 +109,90 @@ def Show_GLCM_Descriptor(glcm_descriptor, title, raw_img):
     
     plt.show()
     fig.savefig('2_1_3_'+str(title)+'.tif',dpi=300, bbox_inches='tight')
+    
+def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
+    
+    design_matrix = np.zeros((672,16))
+    D_x = -1
+    D_y = 0
+    i=0                
+    for x in range (672):
+        z=0
+        if D_x == 23:
+            D_y = D_y + 1
+            D_x = 0
+            
+        else:
+            D_x = D_x + 1
+            
+            for y in range (16):
+                
+                if y<=3:
+                    print('i',i)
+                    design_matrix[x][y] =  glcm_correlation[0, i, D_y, D_x]                 
+                    i=i+1
+                    
+                    if (i==4):
+                        i=0                                        
+                if y>3 and y<=7:
+                    design_matrix[x][y] = glcm_contrast[0, i, D_y, D_x]
+                    i=i+1
+                    if (i==4):
+                        i=0                        
+                if y>7 and y<=11:
+                    design_matrix [x][y] = glcm_energy[0, i, D_y, D_x]
+                    i=i+1
+                    if (i==4):
+                        i=0                    
+                if y>11 and y<=16:
+                    design_matrix [x][y] = glcm_homogeneity[0, i, D_y, D_x]
+                    i=i+1
+                    if (i==4):
+                        i=0
+    design_matrix = np.asarray(design_matrix)
+    design_matrix.shape
+   # plt.style.use(style=)
+    plt.figure()
+    plt.title("Design_matrix")
+    plt.xlabel("Features")
+    plt.ylabel("Observations")  
+    
+    manager = plt.get_current_fig_manager()
+    manager.full_screen_toggle()
+    plt.imshow(design_matrix,cmap=plt.cm.gray)
+    plt.savefig('2_1_4_Design_Matrix.tif',dpi=1000, bbox_inches='tight')
+   
+    return design_matrix
+
+def kmeansclustering(design_matrix):
+    X = np.transpose(design_matrix)
+    kmeans = KMeans(n_clusters=4).fit(X)
+    return kmeans
+
+def kmeansVisualize(kmeans):
+    
+    segm_img = kmeans.lable
+    plt.imshow(segm_img)
+
+    newMtx=[]
+    colom = []
+
+    for i in range(segm_img.shape[0]):
+        row = []
+        for j in range(segm_img.shape[1]):
+            
+            for k in range(20):
+                row.append(segm_img[i,j])
+            
+        for l in range(20):
+            colom.append(row)
+            
+        newMtx.append(colom)
+
+    newMtx= np.asarray(colom)
+
+    plt.imshow(newMtx,cmap ='gray')
+
+    plt.imsave('Segmentation.png',newMtx)
+    return plot
+
