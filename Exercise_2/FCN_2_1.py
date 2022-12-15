@@ -117,7 +117,6 @@ def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
     D_y = 0
     i=0                
     for x in range (672):
-        z=0
         if D_x == 23:
             D_y = D_y + 1
             D_x = 0
@@ -128,7 +127,6 @@ def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
             for y in range (16):
                 
                 if y<=3:
-                    print('i',i)
                     design_matrix[x][y] =  glcm_correlation[0, i, D_y, D_x]                 
                     i=i+1
                     
@@ -171,9 +169,10 @@ def kmeansclustering(design_matrix):
 
 def kmeansVisualize(kmeans):
     
-    segm_img = kmeans.lable
+   
+    segm_img = kmeans.labels_.reshape((28,24))
     plt.imshow(segm_img)
-
+    
     newMtx=[]
     colom = []
 
@@ -194,5 +193,5 @@ def kmeansVisualize(kmeans):
     plt.imshow(newMtx,cmap ='gray')
 
     plt.imsave('Segmentation.png',newMtx)
-    return plot
+    return newMtx
 

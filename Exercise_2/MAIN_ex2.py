@@ -66,9 +66,22 @@ Show_GLCM_Descriptor(glcm_homogeneity, 'GLCM Homogeneity', norm_img)
         and the texture description are the features. What is the size of your design matrix?"""
         
 #Calculation of Design Matrix
-
 design_matrix = design_matrix(glcm_correlation, glcm_contrast, glcm_energy, glcm_homogeneity) 
-""" 2.1 Kmeans"""
+
+
+""" 1.5 BONUS, 1 extra point) Try two different pixel distances D, e.g. 1 and 3, and show the processed
+    images using subplots. Comment on the influence of the distance parameter. Decide for one of
+    the two distances D to be used in the design matrix for the second part of the exercise.
+    """
+    
+#EXTRA POINTSSSSS
+#gar kein bock mehr   
+
+""" 2.1 Cluster the blocks represented by the design matrix using k-means clustering. Use k=4 and use at
+least 10 repeats for the initialization."""
 kmeans = kmeansclustering(design_matrix)
 
+""" 2.2 Visualize the blocks corresponding to the four different labels as an overlay to the original
+image, i.e. mask the original image with the labels found by the k-means algorithm. Which
+regions in the image were found? Describe the characteristics of the regions."""
 #Overlay = kmeansVisualize(kmeans)
