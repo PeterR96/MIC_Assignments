@@ -66,7 +66,7 @@ Show_GLCM_Descriptor(glcm_homogeneity, 'GLCM Homogeneity', norm_img)
         and the texture description are the features. What is the size of your design matrix?"""
         
 #Calculation of Design Matrix
-#design_matrix = design_matrix(glcm_correlation, glcm_contrast, glcm_energy, glcm_homogeneity) 
+design_matrix = design_matrix(glcm_correlation, glcm_contrast, glcm_energy, glcm_homogeneity) 
 design_matrix_hor = design_matrix_hor(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity)
 #design_list = design_matrix_list(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity)
 """ 1.5 BONUS, 1 extra point) Try two different pixel distances D, e.g. 1 and 3, and show the processed
@@ -79,11 +79,10 @@ design_matrix_hor = design_matrix_hor(glcm_correlation, glcm_contrast,glcm_energ
 
 """ 2.1 Cluster the blocks represented by the design matrix using k-means clustering. Use k=4 and use at
 least 10 repeats for the initialization."""
-for i in range (0,10):
-    kmeans = kmeansclustering(design_matrix_hor)
+kmeans = kmeansclustering(design_matrix)
 
 """ 2.2 Visualize the blocks corresponding to the four different labels as an overlay to the original
 image, i.e. mask the original image with the labels found by the k-means algorithm. Which
 regions in the image were found? Describe the characteristics of the regions."""
-Overlay = kmeansVisualize(kmeans)
+#Overlay = kmeansVisualize(kmeans,raw_img)
 OV2 = Vkmeans (kmeans, raw_img)

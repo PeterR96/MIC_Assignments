@@ -81,19 +81,19 @@ def Show_GLCM_Descriptor(glcm_descriptor, title, raw_img):
     raw.set_yticks([])
    # display direction 0°
     img0deg = fig.add_subplot(2,3,2)
-    img0deg.imshow(glcm_descriptor[0,0,:,:], cmap=plt.cm.gray, interpolation='none', vmin=0, vmax=np.max(glcm_descriptor[0,0,:,:]))
+    img0deg.imshow(glcm_descriptor[0,0,:,:],cmap=plt.cm.gray, interpolation='none', vmin=0, vmax=np.max(glcm_descriptor[0,0,:,:]))
     img0deg.set_xlabel('direction: 0°, distance: 1')
     img0deg.set_xticks([])
     img0deg.set_yticks([])
    # display direction 45°
     img45deg = fig.add_subplot(2,3,3)
-    img45deg.imshow(glcm_descriptor[0,1,:,:], cmap=plt.cm.gray, interpolation='none', vmin=0, vmax=np.max(glcm_descriptor[0,1,:,:]))
+    img45deg.imshow(glcm_descriptor[0,1,:,:],cmap=plt.cm.gray,interpolation='none', vmin=0, vmax=np.max(glcm_descriptor[0,1,:,:]))
     img45deg.set_xlabel('direction: 45°, distance: 1')
     img45deg.set_xticks([])
     img45deg.set_yticks([])
    # display direction 90°
     img90deg = fig.add_subplot(2,3,5)
-    img90deg.imshow(glcm_descriptor[0,2,:,:], cmap=plt.cm.gray, interpolation='none', vmin=0, vmax=np.max(glcm_descriptor[0,2,:,:]))
+    img90deg.imshow(glcm_descriptor[0,2,:,:],cmap=plt.cm.gray,  interpolation='none', vmin=0, vmax=np.max(glcm_descriptor[0,2,:,:]))
     img90deg.set_xlabel('direction: 90°, distance: 1')
     img90deg.set_xticks([])
     img90deg.set_yticks([])
@@ -142,17 +142,18 @@ def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
                     i=i+1
                     if (i==3):
                         i=0                    
-                if y>11 and y<=16:
+                if y>11 and y<16:
                     design_matrix [x][y] = glcm_homogeneity[0, i, D_y, D_x]
                     i=i+1
                     if (i==3):
                         i=0
     
+    design_matrix = design_matrix.transpose()
     design_matrix.shape
     plt.figure()
     plt.title("Design_matrix")  
-    plt.xlabel("Features")
-    plt.ylabel("Observations")  
+    plt.ylabel("Features")
+    plt.xlabel("Observations")  
     
    
     plt.imshow(design_matrix,cmap=plt.cm.gray)
@@ -162,13 +163,18 @@ def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
 
 def kmeansclustering(design_matrix):
     X = np.transpose(design_matrix)
-    kmeans = KMeans(n_clusters=4).fit(X)
+    kmeans = KMeans(n_clusters=4, n_init=10).fit(X)
+    
     return kmeans
 
-def kmeansVisualize(kmeans):
+def kmeansVisualize(kmeans,raw_img):
    
-    segm_img = kmeans.labels_.reshape((24,28))
+    segm_img = kmeans.labels_.reshape((28,24))
+    
+    plt.figure()
+    plt.title("Segmentation")  
     plt.imshow(segm_img)
+    plt.savefig('Segmentation.tif',dpi=1000, bbox_inches='tight')
     
     newMtx=[]
     colom = []
@@ -177,22 +183,22 @@ def kmeansVisualize(kmeans):
         row = []
         for j in range(segm_img.shape[1]):
             
-            for k in range(20):
+            for k in range(19):
                 row.append(segm_img[i,j])
             
-        for l in range(20):
+        for l in range(19):
             colom.append(row)
             
         newMtx.append(colom)
 
-    newMtx= np.asarray(colom)      
+    newMtx= np.asarray(colom)  
     
-
     plt.figure()
-    plt.title("Segmentation")                  
-    plt.imshow(newMtx,cmap ='gray')
-    plt.savefig('Segmentation.tif',dpi=1000, bbox_inches='tight')
-    #plt.imsave('Segmentation.png',newMtx)
+    plt.title("Overlay")                     
+    plt.imshow(raw_img, cmap="gray")
+    plt.imshow(newMtx,cmap ='jet', alpha=0.5)
+    plt.savefig('Overlay.tif',dpi=1000, bbox_inches='tight')
+    
     return newMtx
 
 def design_matrix_hor(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
@@ -238,8 +244,6 @@ def design_matrix_hor(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogenei
                        i=0
                 
     
-    design_matrix_hor = np.asarray(design_matrix_hor) 
-    design_matrix_hor.shape
     
     plt.figure()
     
@@ -251,11 +255,11 @@ def design_matrix_hor(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogenei
     
     return design_matrix_hor
     
-def Vkmeans(kmeans):
+def Vkmeans(kmeans, raw_img):
         label_img = np.asarray(kmeans.labels_).reshape(28,24)
-        # resize the image to the same size as the original
         label_img = cv2.resize(label_img, (480, 560), interpolation=cv2.INTER_NEAREST)
         plt.figure()
+        plt.title("Overlay")  
         plt.imshow(raw_img, cmap="gray")
         plt.imshow(label_img, cmap="jet", alpha=0.5)
         plt.show()
