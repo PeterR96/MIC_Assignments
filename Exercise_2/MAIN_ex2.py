@@ -8,7 +8,6 @@
 
 # IMPORTS
 import cv2
-import array as arr
 from FCN_2_1 import *
 
 # DEFINITIONS
@@ -55,7 +54,6 @@ glcm_homogeneity = Calc_GLCM_Descriptors(glcm, blocks)[3]
 
 glcm_correlation_f = glcm_correlation.shape, glcm_correlation
 
-
 # Show processed images
 Show_GLCM_Descriptor(glcm_correlation, 'GLCM Correlation', norm_img)
 Show_GLCM_Descriptor(glcm_contrast, 'GLCM Contrast', norm_img) # 
@@ -67,8 +65,7 @@ Show_GLCM_Descriptor(glcm_homogeneity, 'GLCM Homogeneity', norm_img)
         
 #Calculation of Design Matrix
 design_matrix = design_matrix(glcm_correlation, glcm_contrast, glcm_energy, glcm_homogeneity) 
-design_matrix_hor = design_matrix_hor(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity)
-#design_list = design_matrix_list(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity)
+
 """ 1.5 BONUS, 1 extra point) Try two different pixel distances D, e.g. 1 and 3, and show the processed
     images using subplots. Comment on the influence of the distance parameter. Decide for one of
     the two distances D to be used in the design matrix for the second part of the exercise.
@@ -84,5 +81,4 @@ kmeans = kmeansclustering(design_matrix)
 """ 2.2 Visualize the blocks corresponding to the four different labels as an overlay to the original
 image, i.e. mask the original image with the labels found by the k-means algorithm. Which
 regions in the image were found? Describe the characteristics of the regions."""
-#Overlay = kmeansVisualize(kmeans,raw_img)
-OV2 = Vkmeans (kmeans, raw_img)
+Overlay = Vkmeans (kmeans, raw_img)

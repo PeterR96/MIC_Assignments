@@ -166,3 +166,38 @@ added_image = cv2.addWeighted(norm_image,0.9,norm_label,0.4,0)
 plt.imshow(added_image)
 
 plt.imsave('Overlay.png',added_image)
+
+
+def kmeansVisualize(kmeans,raw_img):
+   
+    segm_img = kmeans.labels_.reshape((28,24))
+    
+    plt.figure()
+    plt.title("Segmentation")  
+    plt.imshow(segm_img)
+    plt.savefig('Segmentation.tif',dpi=1000, bbox_inches='tight')
+    
+    newMtx=[]
+    colom = []
+
+    for i in range(segm_img.shape[0]):
+        row = []
+        for j in range(segm_img.shape[1]):
+            
+            for k in range(19):
+                row.append(segm_img[i,j])
+            
+        for l in range(19):
+            colom.append(row)
+            
+        newMtx.append(colom)
+
+    newMtx= np.asarray(colom)  
+    
+    plt.figure()
+    plt.title("Overlay")                     
+    plt.imshow(raw_img, cmap="gray")
+    plt.imshow(newMtx,cmap ='jet', alpha=0.5)
+    plt.savefig('Overlay.tif',dpi=1000, bbox_inches='tight')
+    
+    return newMtx
