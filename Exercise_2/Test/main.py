@@ -87,7 +87,7 @@ props_list.shape
 fig,ax=plt.subplots(4,4,figsize=(12,10))
 for i in range(props_list.shape[0]):
     for j in range(props_list.shape[4]):
-        ax[i,j].imshow(props_list[j,:,:,0,i])
+        ax[i,j].imshow(props_list[j,:,:,0,i],cmap ='gray')
         ax[i,j].title.set_text(props[j]+", Deg: "+str(angles[i]))
 fig.tight_layout()
 
@@ -155,7 +155,7 @@ for i in range(segm_img.shape[0]):
 
 newMtx= np.asarray(colom)
 
-plt.imshow(newMtx,cmap ='gray')
+plt.imshow(newMtx)
 
 plt.imsave('Segmentation.png',newMtx)
 
@@ -163,6 +163,6 @@ norm_image = cv2.normalize(img, None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX
 norm_label = cv2.normalize(newMtx, None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
 
 added_image = cv2.addWeighted(norm_image,0.9,norm_label,0.4,0)
-plt.imshow(added_image, cmap ='gray')
+plt.imshow(added_image)
 
 plt.imsave('Overlay.png',added_image)

@@ -15,7 +15,7 @@ from sklearn.cluster import KMeans
 import sklearn
 
 from skimage.feature import greycomatrix, greycoprops
-from sklearn.cluster import KMeans
+
 
 
 """ Normalize the Image"""
@@ -108,7 +108,7 @@ def Show_GLCM_Descriptor(glcm_descriptor, title, raw_img):
     plt.tight_layout()
     
     plt.show()
-    fig.savefig('2_1_3_'+str(title)+'.tif',dpi=300, bbox_inches='tight')
+    fig.savefig('2_1_3_'+str(title)+'.tif',dpi=1000,bbox_inches='tight')
     
 def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
     
@@ -118,7 +118,7 @@ def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
     i=0                
     for x in range (672):
         if D_x == 23:
-            D_y = D_y + 1
+            D_y = D_y+1
             D_x = 0
             
         else:
@@ -130,33 +130,31 @@ def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
                     design_matrix[x][y] =  glcm_correlation[0, i, D_y, D_x]                 
                     i=i+1
                     
-                    if (i==4):
+                    if (i==3):
                         i=0                                        
                 if y>3 and y<=7:
                     design_matrix[x][y] = glcm_contrast[0, i, D_y, D_x]
                     i=i+1
-                    if (i==4):
+                    if (i==3):
                         i=0                        
                 if y>7 and y<=11:
                     design_matrix [x][y] = glcm_energy[0, i, D_y, D_x]
                     i=i+1
-                    if (i==4):
+                    if (i==3):
                         i=0                    
                 if y>11 and y<=16:
                     design_matrix [x][y] = glcm_homogeneity[0, i, D_y, D_x]
                     i=i+1
-                    if (i==4):
+                    if (i==3):
                         i=0
-    design_matrix = np.asarray(design_matrix)
+    
     design_matrix.shape
-   # plt.style.use(style=)
     plt.figure()
-    plt.title("Design_matrix")
+    plt.title("Design_matrix")  
     plt.xlabel("Features")
     plt.ylabel("Observations")  
     
-    manager = plt.get_current_fig_manager()
-    manager.full_screen_toggle()
+   
     plt.imshow(design_matrix,cmap=plt.cm.gray)
     plt.savefig('2_1_4_Design_Matrix.tif',dpi=1000, bbox_inches='tight')
    
@@ -168,9 +166,8 @@ def kmeansclustering(design_matrix):
     return kmeans
 
 def kmeansVisualize(kmeans):
-    
    
-    segm_img = kmeans.labels_.reshape((28,24))
+    segm_img = kmeans.labels_.reshape((24,28))
     plt.imshow(segm_img)
     
     newMtx=[]
@@ -188,10 +185,78 @@ def kmeansVisualize(kmeans):
             
         newMtx.append(colom)
 
-    newMtx= np.asarray(colom)
+    newMtx= np.asarray(colom)      
+    
 
+    plt.figure()
+    plt.title("Segmentation")                  
     plt.imshow(newMtx,cmap ='gray')
-
-    plt.imsave('Segmentation.png',newMtx)
+    plt.savefig('Segmentation.tif',dpi=1000, bbox_inches='tight')
+    #plt.imsave('Segmentation.png',newMtx)
     return newMtx
 
+def design_matrix_hor(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
+    
+    design_matrix_hor = np.zeros((16,672))
+    D_x = 0
+    D_y = -1
+    i=0
+             
+    for x in range (672):
+       if D_y == 27:
+           D_x = D_x + 1
+           D_y = 0
+           
+       else:
+           D_y = D_y + 1
+           
+           for y in range (16):
+               
+               if y<=3:
+                   design_matrix_hor[y][x] =  glcm_correlation[0, i, D_y, D_x]                 
+                   i=i+1
+                   
+                   if (i==3):
+                       i=0 
+                                       
+               if y>3 and y<=7:
+                   design_matrix_hor[y][x] = glcm_contrast[0, i, D_y, D_x]
+                   i=i+1
+                   if (i==3):
+                       i=0    
+                       
+               if y>7 and y<=11:
+                   design_matrix_hor [y][x] = glcm_energy[0, i, D_y, D_x]
+                   i=i+1
+                   if (i==3):
+                       i=0   
+                       
+               if y>11 and y<=16:
+                   design_matrix_hor [y][x] = glcm_homogeneity[0, i, D_y, D_x]
+                   i=i+1
+                   if (i==3):
+                       i=0
+                
+    
+    design_matrix_hor = np.asarray(design_matrix_hor) 
+    design_matrix_hor.shape
+    
+    plt.figure()
+    
+    plt.title("Design_matrix_hor")      
+    plt.ylabel("Features")
+    plt.xlabel("Observations")      
+    plt.imshow(design_matrix_hor,cmap=plt.cm.gray)
+    plt.savefig('2_1_4_Design_Matrix_hor.tif',dpi=1000)
+    
+    return design_matrix_hor
+    
+def Vkmeans(kmeans):
+        label_img = np.asarray(kmeans.labels_).reshape(28,24)
+        # resize the image to the same size as the original
+        label_img = cv2.resize(label_img, (480, 560), interpolation=cv2.INTER_NEAREST)
+        plt.figure()
+        plt.imshow(raw_img, cmap="gray")
+        plt.imshow(label_img, cmap="jet", alpha=0.5)
+        plt.show()
+        return label_img
