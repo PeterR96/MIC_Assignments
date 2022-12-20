@@ -22,7 +22,7 @@ from skimage.feature import graycomatrix, graycoprops
 """ Normalize the Image"""
 def Normalize_Image(img, greylevels):
     norm_img = cv2.normalize(img, None, 0, greylevels-1, norm_type=cv2.NORM_MINMAX, dtype = cv2.CV_8U)
-    cv2.imwrite('2_1_Normalized_Img.tif', norm_img)
+    cv2.imwrite('2_1_Normalized_Img.png', norm_img)
     return norm_img
 
 """ Determine Image Size """
@@ -109,7 +109,7 @@ def Show_GLCM_Descriptor(glcm_descriptor, title, raw_img):
     plt.tight_layout()
     
     plt.show()
-    fig.savefig('2_1_3_'+str(title)+'distance_1.tif',dpi=1000,bbox_inches='tight')
+    fig.savefig('2_1_3_'+str(title)+'distance_1.png',dpi=1000,bbox_inches='tight')
   
 """"Build Design Matrix"""   
 def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
@@ -241,4 +241,4 @@ def Show_GLCM_Descriptor_d3(glcm_descriptor, glcm_descriptor_d3, title, raw_img)
     plt.suptitle(title)
     plt.tight_layout()  
     plt.show()
-    fig.savefig('2_1_3_'+str(title)+'distance_1.tif',dpi=300, bbox_inches='')
+    fig.savefig('2_1_3_'+str(title)+'.png',dpi=1000, bbox_inches='tight')
