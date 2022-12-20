@@ -14,7 +14,8 @@ from PIL import Image
 from sklearn.cluster import KMeans
 import sklearn
 
-from skimage.feature import greycomatrix, greycoprops
+#from skimage.feature import greycomatrix, greycoprops
+from skimage.feature import graycomatrix, graycoprops
 
 
 
@@ -62,10 +63,10 @@ def Calc_GLCM_Descriptors(glcm, blocks):
     
     for Dy in range (0, blocks[1]):      
         for Dx in range (0, blocks[0]):
-            glcm_correlation[:,:,Dy,Dx] = skimg.feature.graycoprops(glcm[:,:,:,:,Dy,Dx], 'correlation')
-            glcm_contrast[:,:,Dy,Dx] = skimg.feature.graycoprops(glcm[:,:,:,:,Dy,Dx], 'contrast')
-            glcm_energy[:,:,Dy,Dx] = skimg.feature.graycoprops(glcm[:,:,:,:,Dy,Dx], 'energy')
-            glcm_homogeneity[:,:,Dy,Dx] = skimg.feature.graycoprops(glcm[:,:,:,:,Dy,Dx], 'homogeneity')
+            glcm_correlation[:,:,Dy,Dx] = graycoprops(glcm[:,:,:,:,Dy,Dx], 'correlation')
+            glcm_contrast[:,:,Dy,Dx] = graycoprops(glcm[:,:,:,:,Dy,Dx], 'contrast')
+            glcm_energy[:,:,Dy,Dx] = graycoprops(glcm[:,:,:,:,Dy,Dx], 'energy')
+            glcm_homogeneity[:,:,Dy,Dx] = graycoprops(glcm[:,:,:,:,Dy,Dx], 'homogeneity')
                             
     return glcm_correlation, glcm_contrast, glcm_energy, glcm_homogeneity
 
@@ -109,7 +110,8 @@ def Show_GLCM_Descriptor(glcm_descriptor, title, raw_img):
     
     plt.show()
     fig.savefig('2_1_3_'+str(title)+'distance_1.tif',dpi=1000,bbox_inches='tight')
-    
+  
+""""Build Design Matrix"""   
 def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
     
     design_matrix = np.zeros((672,16))
@@ -128,25 +130,25 @@ def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
                 
                 if y<=3:
                     i=i+1
-                    design_matrix[x][y] =  glcm_correlation[0, i, D_y, D_x]                                                         
+                    design_matrix[x,y] =  glcm_correlation[0, i, D_y, D_x]                                                         
                     if (i==3):
                         i=-1 
                                        
                 if y>3 and y<=7:
                     i=i+1
-                    design_matrix[x][y] = glcm_contrast[0, i, D_y, D_x]                    
+                    design_matrix[x,y] = glcm_contrast[0, i, D_y, D_x]                    
                     if (i==3):
                         i=-1      
                         
                 if y>7 and y<=11:
                     i=i+1
-                    design_matrix[x][y] = glcm_energy[0, i, D_y, D_x]
+                    design_matrix[x,y] = glcm_energy[0, i, D_y, D_x]
                     if (i==3):
                         i=-1     
                         
                 if y>11 and y<=16:
                     i=i+1
-                    design_matrix[x][y] = glcm_homogeneity[0, i, D_y, D_x]
+                    design_matrix[x,y] = glcm_homogeneity[0, i, D_y, D_x]
                     if (i==3):
                         i=-1 
     
@@ -158,22 +160,85 @@ def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
     plt.xlabel("Observations")     
     plt.imshow(img_M,cmap=plt.cm.gray)
     plt.savefig('2_1_4_Design_Matrix.tif',dpi=300, bbox_inches='tight')
-   
     return design_matrix
 
-def kmeansclustering(design_matrix):
-    
+"""Kmeans clustering"""
+def kmeansclustering(design_matrix):    
     kmeans = KMeans(n_clusters=4, n_init=10).fit(design_matrix)
-    
     return kmeans
 
+"""Kmeans Visualization"""
 def Vkmeans(kmeans, raw_img):
-        label_img = np.asarray(kmeans.labels_).reshape(28,24)
-        label_img = cv2.resize(label_img, (480, 560), interpolation=cv2.INTER_NEAREST)
+        label_img = kmeans.labels_.reshape(28,24)
+        label_img = cv2.resize(label_img, (460,560),interpolation=cv2.INTER_NEAREST)
+        
+        for i in range (20):
+            label_img[:,i]= label_img[0,21]
+            
         plt.figure()
-        plt.title("Overlay with distance: 1")  
+        plt.title("Overlay with distance: 1 / Cluster = 4")  
         plt.imshow(raw_img, cmap="gray")
         plt.imshow(label_img, cmap="jet", alpha=0.5)
-        plt.savefig('2_2_2_Overlay_distance_1.tif',dpi=300, bbox_inches='tight')
+        plt.savefig('2_2_2_Overlay_distance_1.tif',dpi=1000, bbox_inches='tight')
         plt.show()
         return label_img
+    
+
+def Show_GLCM_Descriptor_d3(glcm_descriptor, glcm_descriptor_d3, title, raw_img):
+   # create figure
+    fig = plt.figure()
+    
+   # display direction 0°
+    img0deg = fig.add_subplot(2,4,1)
+    img0deg.imshow(glcm_descriptor[0,0,:,:],cmap=plt.cm.gray, interpolation='none', vmin=0, vmax=np.max(glcm_descriptor[0,0,:,:]))
+    img0deg.set_title('dir: 0°, dis: 1')
+    img0deg.set_xticks([])
+    img0deg.set_yticks([])
+   # display direction 45°
+    img45deg = fig.add_subplot(2,4,2)
+    img45deg.imshow(glcm_descriptor[0,1,:,:],cmap=plt.cm.gray,interpolation='none', vmin=0, vmax=np.max(glcm_descriptor[0,1,:,:]))
+    img45deg.set_title('dir: 45°, dis: 1')
+    img45deg.set_xticks([])
+    img45deg.set_yticks([])
+   # display direction 90°
+    img90deg = fig.add_subplot(2,4,3)
+    img90deg.imshow(glcm_descriptor[0,2,:,:],cmap=plt.cm.gray,  interpolation='none', vmin=0, vmax=np.max(glcm_descriptor[0,2,:,:]))
+    img90deg.set_title('dir: 90°, dis: 1')
+    img90deg.set_xticks([])
+    img90deg.set_yticks([])
+   # display direction 135°
+    img135deg = fig.add_subplot(2,4,4)
+    img135deg.imshow(glcm_descriptor[0,3,:,:], cmap=plt.cm.gray, interpolation='none', vmin=0, vmax=np.max(glcm_descriptor[0,3,:,:]))
+    img135deg.set_title('dir: 135°, dis: 1')
+    img135deg.set_xticks([])
+    img135deg.set_yticks([])
+    
+    # display direction 0°
+    img0deg_d3 = fig.add_subplot(2,4,5)
+    img0deg_d3.imshow(glcm_descriptor_d3[0,0,:,:],cmap=plt.cm.gray, interpolation='none', vmin=0, vmax=np.max(glcm_descriptor_d3[0,0,:,:]))
+    img0deg_d3.set_title('dir: 0°, dis: 3')
+    img0deg_d3.set_xticks([])
+    img0deg_d3.set_yticks([])
+   # display direction 45°
+    img45deg_d3 = fig.add_subplot(2,4,6)
+    img45deg_d3.imshow(glcm_descriptor_d3[0,1,:,:],cmap=plt.cm.gray,interpolation='none', vmin=0, vmax=np.max(glcm_descriptor_d3[0,1,:,:]))
+    img45deg_d3.set_title('dir: 45°, dis: 3')
+    img45deg_d3.set_xticks([])
+    img45deg_d3.set_yticks([])
+   # display direction 90°
+    img90deg_d3 = fig.add_subplot(2,4,7)
+    img90deg_d3.imshow(glcm_descriptor_d3[0,2,:,:],cmap=plt.cm.gray,  interpolation='none', vmin=0, vmax=np.max(glcm_descriptor_d3[0,2,:,:]))
+    img90deg_d3.set_title ('dir: 90°, dis: 3')
+    img90deg_d3.set_xticks([])
+    img90deg_d3.set_yticks([])
+   # display direction 135°
+    img135deg_d3 = fig.add_subplot(2,4,8)
+    img135deg_d3.imshow(glcm_descriptor_d3[0,3,:,:], cmap=plt.cm.gray, interpolation='none', vmin=0, vmax=np.max(glcm_descriptor_d3[0,3,:,:]))
+    img135deg_d3.set_title('dir: 135°, dis: 3')
+    img135deg_d3.set_xticks([])
+    img135deg_d3.set_yticks([])   
+   # display output
+    plt.suptitle(title)
+    plt.tight_layout()  
+    plt.show()
+    fig.savefig('2_1_3_'+str(title)+'distance_1.tif',dpi=300, bbox_inches='')

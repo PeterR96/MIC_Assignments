@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+55# -*- coding: utf-8 -*-
 """
 Spyder Editor
 
@@ -19,7 +19,7 @@ from sklearn.cluster import KMeans
 
 
 PATCH_SIZE = 20
-distance = [1]
+distance = [3]
 angles = [0, np.pi/4, np.pi/2, 3*np.pi/4]
 
 img = cv2.imread("./breastXray.tif", 

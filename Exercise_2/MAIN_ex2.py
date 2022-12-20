@@ -25,7 +25,7 @@ angles = [0, np.pi/4, np.pi/2, 3*np.pi/4]
 """ 1.1 Load the image “breastXray.tif”. What is the original image size and hence 
         how many blocks/regions are processed in the following steps?"""
 raw_img = cv2.imread("./breastXray.tif", cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
-
+raw_img [:,0]= 30
 # Normalize Image
 norm_img = Normalize_Image(raw_img, greylevels)
 # Determine Image Size
@@ -70,7 +70,18 @@ design_matrix = design_matrix(glcm_correlation, glcm_contrast, glcm_energy, glcm
     images using subplots. Comment on the influence of the distance parameter. Decide for one of
     the two distances D to be used in the design matrix for the second part of the exercise.
     """
-    
+glcm_d3 = Calc_GLCM(norm_img, blocks, [3], angles, greylevels)
+glcm_correlation_d3 = Calc_GLCM_Descriptors(glcm_d3, blocks)[0]
+glcm_contrast_d3 = Calc_GLCM_Descriptors(glcm_d3, blocks)[1]
+glcm_energy_d3 = Calc_GLCM_Descriptors(glcm_d3, blocks)[2]
+glcm_homogeneity_d3 = Calc_GLCM_Descriptors(glcm_d3, blocks)[3]
+
+Show_GLCM_Descriptor_d3(glcm_correlation, glcm_correlation_d3, 'GLCM Correlation D = 1 vs D = 3', norm_img)
+Show_GLCM_Descriptor_d3(glcm_contrast, glcm_contrast_d3, 'GLCM Contrast D = 1 vs D = 3', norm_img) # 
+Show_GLCM_Descriptor_d3(glcm_energy, glcm_energy_d3, 'GLCM Energy D = 1 vs D = 3', norm_img)
+Show_GLCM_Descriptor_d3(glcm_homogeneity, glcm_homogeneity_d3, 'GLCM Homogeneity D = 1 vs D = 3', norm_img)
+
+
 #EXTRA POINTSSSSS
 #gar kein bock mehr   
 
