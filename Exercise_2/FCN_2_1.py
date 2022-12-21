@@ -161,7 +161,6 @@ def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
     plt.ylabel("Features")
     plt.xlabel("Observations")     
     plt.imshow(img_M,cmap=plt.cm.gray)
-    plt.yticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])
     plt.show()
     plt.savefig('2_1_4_Design_Matrix.tif',dpi=1000, bbox_inches='tight')
     return design_matrix
