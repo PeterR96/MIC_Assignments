@@ -82,9 +82,6 @@ Show_GLCM_Descriptor_d3(glcm_energy, glcm_energy_d3, 'GLCM Energy D = 1 vs D = 3
 Show_GLCM_Descriptor_d3(glcm_homogeneity, glcm_homogeneity_d3, 'GLCM Homogeneity D = 1 vs D = 3', norm_img)
 
 
-#EXTRA POINTSSSSS
-#gar kein bock mehr   
-
 """ 2.1 Cluster the blocks represented by the design matrix using k-means clustering. Use k=4 and use at
 least 10 repeats for the initialization."""
 kmeans = kmeansclustering(design_matrix)
