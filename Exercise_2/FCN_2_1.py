@@ -154,12 +154,15 @@ def design_matrix(glcm_correlation, glcm_contrast,glcm_energy,glcm_homogeneity):
     
     #design_matrix.shape
     img_M=np.transpose(design_matrix)
-    plt.figure()
+    f = plt.figure()
+    f.set_figwidth(5)
+    f.set_figheight(100)
     plt.title("Design_matrix")  
     plt.ylabel("Features")
     plt.xlabel("Observations")     
     plt.imshow(img_M,cmap=plt.cm.gray)
-    plt.savefig('2_1_4_Design_Matrix.tif',dpi=300, bbox_inches='tight')
+    plt.show()
+    plt.savefig('2_1_4_Design_Matrix.tif',dpi=1000, bbox_inches='tight')
     return design_matrix
 
 """Kmeans clustering"""
