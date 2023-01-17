@@ -6,9 +6,10 @@ Created on Thu Dec 29 14:53:06 2022
 """
 
 import csv
+import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 from FCNs_3 import *
-
 
 """
 2.1 Load the data of the “XL_2022.csv” file. While the last column contains the class labels the rest
@@ -31,3 +32,19 @@ design_matrix = dataset [:, :-1]
 
 test_data = extract_test_data (design_matrix)
 train_data = extract_train_data (design_matrix)
+
+train_Data = train_data[1:]
+train_Data = train_Data.astype(np.uint32)
+"""
+2.3. Calculate and plot the covariance matrix of the features and visualize the result from your
+training dataset. Based on your visualization, select a reduced set of features you think might be
+useful for further classification and generate a reduced design matrix X1. Give a rationale for
+your choice of features.
+"""
+
+# calculate the covariance matrix
+cov_matrix = np.cov(train_Data)
+
+# visualize the result
+plt.imshow(cov_matrix, cmap='hot', interpolation='nearest')
+plt.show()
