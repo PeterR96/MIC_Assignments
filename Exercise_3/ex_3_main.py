@@ -54,8 +54,13 @@ cov_matrix = np.cov(np.transpose(train_data_X_arr))
 plt.imshow(cov_matrix, cmap='hot', interpolation='nearest')
 plt.show()
 
+index1 = []
+for i in range(16):
+    if abs(cov_matrix[1,i]) <= 0.09:
+        index1.append(i)
+        
 #reduced set of features
-index = [0,4,6,8,12,14] 
+index = [0,5,6,8,14,15]
 index.append(16) #add lables
 selection = data_X.columns[index]
 cov_selected = data_X [selection].head()
